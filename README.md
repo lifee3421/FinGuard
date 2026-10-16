@@ -6,6 +6,25 @@ FinGuard is a Python prototype exploring how AI can carry out a multi-step inves
 
 > **Project scope**: FinGuard is a locally runnable technical/product prototype, not an investment service. Demo prices/events are synthetic. **No real brokerage connection, no live orders, and no financial advice.** Auto Paper / automatic authorization in the interface is a future-design preview, **not an enabled capability**.
 
+## Product preview
+
+![FinGuard Research Studio workspace: multi-step research and human approval](docs/media/workspace.png)
+
+*FinGuard Research Studio v0.6 — **static interactive UI design preview**, showing a **synthetic** research session paused for human approval. The illustrated quotes, events, run IDs, portfolio and tool trace are fixtures; this screenshot is **not** a live LLM execution or an executed order.*
+
+<details>
+<summary><strong>▶ Watch the 16-second UI walkthrough (animated GIF)</strong></summary>
+
+![FinGuard static UI walkthrough — workspace, trace, dossier, market dashboard and authorization preview](docs/media/ui-walkthrough.gif)
+
+The GIF records actual navigation through the static interface, **not a recording of a real backend/LLM run**. The Authorization Center / Auto Paper screens are future-design previews, disabled in the current prototype.
+
+</details>
+
+**Explore the interface:** [Agent execution trace](docs/media/agent-trace.png) · [Research dossier and evidence](docs/media/evidence-library.png) · [Financial dashboard](docs/media/financial-dashboard.png) · [Authorization Center (preview only)](docs/media/authorization-center.png).
+
+The locally runnable FastAPI + Python application provides real task and trace APIs, mock/demo market tools and approved **paper-only** actions as described below; the v0.6 mockup visualizes the intended product experience and includes design-only sections that are **not** wired to that application. See [UI/API mapping](web/UI_API_MAPPING.md) for integration boundaries.
+
 ## Why I built it
 
 Most financial AI demos stop at a chat answer. I wanted to explore the more difficult product questions: What evidence supports a decision? How can a user see *which step* the Agent is on? Who is allowed to approve actions? And what happens if an Agent or the application stops halfway through a tool call?
