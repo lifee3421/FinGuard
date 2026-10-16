@@ -1,0 +1,20 @@
+{
+  "fixture_id": "finguard-synthetic-demo-v1",
+  "source": "synthetic-demo-fixture",
+  "mode": "demo",
+  "as_of": "2026-10-09T20:00:00+00:00",
+  "supported_symbols": ["AAPL", "MSFT", "NVDA"],
+  "scenarios": {
+    "SCENARIO_T0": "research/proposal snapshot",
+    "SCENARIO_T1": "approval execution snapshot",
+    "price_gap": "execution quote beyond 3 percent",
+    "stale": "invalid stale quote",
+    "unavailable": "invalid unavailable quote"
+  },
+  "quotes": {
+    "AAPL": {"SCENARIO_T0": "190.00", "SCENARIO_T1": "191.50", "price_gap": "200.00"},
+    "MSFT": {"SCENARIO_T0": "420.00", "SCENARIO_T1": "422.00", "price_gap": "440.00"},
+    "NVDA": {"SCENARIO_T0": "130.00", "SCENARIO_T1": "131.00", "price_gap": "140.00"}
+  },
+  "notes": "All values and company events are synthetic test data; no real market claim is made."
+}

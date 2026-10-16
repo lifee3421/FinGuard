@@ -1,0 +1,23 @@
+:root { color-scheme: dark; font: 15px/1.45 system-ui, sans-serif; --bg:#111522; --panel:#1b2030; --line:#30384e; --text:#e9ecf5; --muted:#9ca7bd; --accent:#8b7cf6; --danger:#d66d7b; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); }
+.topbar { display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid var(--line); background:#151a29; }
+.muted,.empty { color:var(--muted); }
+.badge { border:1px solid #5c6b95; padding:4px 9px; border-radius:999px; font-size:12px; letter-spacing:.06em; }
+.workspace { display:grid; grid-template-columns:minmax(280px,1.1fr) minmax(280px,1.2fr) minmax(220px,.8fr); gap:16px; padding:20px; max-width:1500px; margin:auto; }
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px; min-width:0; }
+h1,h2 { margin:0 0 14px; font-size:18px; }
+textarea { display:block; width:100%; min-height:120px; resize:vertical; color:var(--text); background:#121726; border:1px solid var(--line); border-radius:5px; padding:10px; }
+label { display:block; margin-bottom:6px; color:var(--muted); }
+.controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:12px; }
+select,button { color:var(--text); background:#242d45; border:1px solid #4b5a80; border-radius:5px; padding:8px 11px; }
+button { cursor:pointer; background:var(--accent); border-color:var(--accent); color:#0f1020; font-weight:600; }
+button.secondary { background:transparent; color:var(--text); }
+button.danger { background:var(--danger); border-color:var(--danger); }
+.check { display:flex; align-items:center; gap:6px; margin:0; }
+.events { list-style:none; margin:0; padding:0; max-height:430px; overflow:auto; }
+.events li { padding:8px 0; border-bottom:1px solid var(--line); font-size:13px; }
+.approval { grid-column:1 / -1; border-color:#6d61c7; }
+.approval.hidden { display:none; }
+.actions { display:flex; gap:8px; margin-top:14px; }
+@media (max-width:900px) { .workspace { grid-template-columns:1fr; padding:12px; } .approval { grid-column:auto; } }
