@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>FinGuard Research Studio v0.6 · Research / Authorization</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&display=swap');
+:root{--ink:#203858;--muted:#8392aa;--mid:#596f8e;--blue:#407da9;--navy:#214c79;--mint:#368d81;--danger:#bf6876;--orange:#c18c4e;--line:rgba(139,162,195,.21);--paper:rgba(255,255,255,.77);--panel:rgba(255,255,255,.69);--shadow:0 12px 34px rgba(55,96,154,.07),0 3px 8px rgba(73,104,139,.027);--radius:22px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 6% 14%,#e2ecff 0,transparent 32%),radial-gradient(circle at 90% 4%,#fef5e5 0,transparent 27%),radial-gradient(circle at 70% 62%,#e2eafa 0,transparent 37%),linear-gradient(130deg,#f4f8ff,#f8fbff 52%,#eff4fc);color:var(--ink);font:14px/1.65 'DM Sans','Noto Sans SC',sans-serif;letter-spacing:.03px}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #82b6e6;outline-offset:2px}
+a{color:inherit;text-decoration:none}.hidden{display:none!important}.app{min-height:100vh;display:flex;max-width:1900px;margin:auto;border-inline:1px solid rgba(255,255,255,.8);background:rgba(247,250,255,.36);box-shadow:0 0 90px rgba(102,147,199,.075)}.side{width:223px;min-width:223px;background:rgba(255,255,255,.58);border-right:1px solid rgba(166,189,215,.21);padding:26px 17px 17px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;backdrop-filter:blur(22px);z-index:20}.brand{display:flex;align-items:center;gap:10px;padding:0 8px 24px}.brandicon{height:38px;width:38px;display:grid;place-items:center;border-radius:13px;color:#fff;background:linear-gradient(140deg,#83b7dd,#2e5d91);box-shadow:0 7px 16px #8fb6d45e;font-size:19px}.brandname{font-weight:800;letter-spacing:-.4px;font-size:20px;line-height:1.15}.brand small{font-size:9px;letter-spacing:1.35px;color:#859bb4;font-weight:800}.eyebrow{font-size:10px;color:#9aaac0;letter-spacing:1.6px;font-weight:800;text-transform:uppercase}.navsection{margin:19px 11px 8px}.navitem{display:flex;align-items:center;gap:11px;border:1px solid transparent;color:#7185a0;padding:12px;border-radius:14px;width:100%;background:transparent;text-align:left;margin:3px 0;font-weight:700;font-size:13px}.navitem svg{width:17px;height:17px;stroke:currentColor;flex-shrink:0}.navitem.active{background:rgba(255,255,255,.92);border-color:#dfebf8;color:#285b8d;box-shadow:0 5px 17px #6e9cc515}.navitem:hover{background:#fff9}.runitem{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:12px;padding:11px;color:var(--ink)}.runitem b{font-size:12px;display:block}.runitem span{display:block;font-size:10px;color:#98a7ba;margin-top:2px}.runitem.active,.runitem:hover{background:#fff9}.sidebottom{margin-top:auto;border-top:1px solid #d8e5f1;padding:16px 8px 0}.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.2px;background:#eff6fc;color:#6384a6;border:1px solid #e5f0fa}.chip.teal{background:#e7f7f1;color:#38867f;border-color:#dcf0e9}.chip.orange{background:#fff3e2;color:#af7b39;border-color:#fae6c9}.chip.red{background:#fff0f1;color:#ba6c73;border-color:#f4dddf}.chip.blue{background:#e8f3ff;color:#3c7daa;border-color:#daeaf8}.chip.tiny{font-size:9px;padding:3px 8px}.sidebottom .muted{font-size:10px;margin-top:8px}.main{min-width:0;flex:1;padding:0 34px 75px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:21px 0 17px}.crumb{color:#91a4b9;font-size:12px;font-weight:700}.crumb strong{color:#4979a6}.topright{display:flex;align-items:center;gap:9px}.avatar{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(160deg,#deedf8,#bed1e9);color:#42618c;font-size:10px;font-weight:800}.content{max-width:1470px;margin:0 auto}.panel{background:var(--paper);border:1px solid rgba(255,255,255,.95);box-shadow:var(--shadow);border-radius:var(--radius);backdrop-filter:blur(20px)}.page{display:none}.page.active{display:block}.between{display:flex;align-items:center;justify-content:space-between;gap:12px}.muted{color:var(--muted)}.small{font-size:12px}.xsmall{font-size:11px}.h1{font-size:29px;font-weight:800;letter-spacing:-1px;line-height:1.38;margin:7px 0 6px}.subhead{font-size:13px;color:#8b9bb2}.heading{font-size:15px;font-weight:800;letter-spacing:-.23px}.headline{font-size:18px;font-weight:800;line-height:1.5}.btn{border:1px solid #dce8f4;background:#fff9;color:#50769d;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;border-radius:12px;font-weight:800;font-size:12px;min-height:37px;white-space:nowrap}.btn:hover{background:#f6fbff;transform:translateY(-1px)}.btn.primary{color:white;background:linear-gradient(120deg,#568fb9,#2d608d);border-color:transparent;box-shadow:0 8px 18px #4b8db53f}.btn.primary:hover{filter:brightness(1.05)}.btn.danger{background:#fff5f4;color:#b46b74;border-color:#f1d9d9}.btn.ghost{border:0;background:transparent}.btn.flat{background:#edf5fc}.btn:active{transform:translateY(0)}.iconbtn{border:0;background:transparent;color:#7e97b0;font-size:17px;padding:4px 7px}.link{border:0;padding:0;background:none;color:#4280af;font-weight:800;font-size:12px;cursor:pointer}.link:hover{text-decoration:underline}.tagline{font-size:10px;color:#6191bd;letter-spacing:1.45px;font-weight:800}.hero{position:relative;padding:29px 31px 26px;overflow:hidden;background:linear-gradient(115deg,rgba(255,255,255,.92),rgba(245,249,255,.76) 65%,rgba(248,245,235,.73))}.hero:after{content:"";position:absolute;width:290px;height:210px;right:-60px;top:-120px;background:#b9d7f6b9;filter:blur(55px);border-radius:50%;pointer-events:none}.hero>*{position:relative;z-index:1}.compose{display:flex;align-items:stretch;gap:9px;background:rgba(255,255,255,.87);padding:10px;border-radius:18px;border:1px solid #e5eef9;box-shadow:0 6px 17px rgba(75,111,150,.055);margin:19px 0 11px}.compose textarea{min-height:66px;max-height:180px;resize:vertical;border:0;outline:0;background:transparent;color:var(--ink);width:100%;padding:7px 9px;line-height:1.65;font-size:13px}.compose textarea::placeholder{color:#acbad0}.compose .btn{align-self:flex-end;min-height:41px;margin:0 2px 2px 0;border-radius:12px}.quick{display:flex;gap:7px;flex-wrap:wrap}.quick button{padding:6px 10px;border-radius:999px;border:1px solid #e6edf7;background:#ffffff80;color:#7590ab;font-size:11px;cursor:pointer}.quick button:hover{background:#fff;color:#3c6f9a}.statusbar{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.66);border:1px solid #ffffffbd;padding:13px 18px;border-radius:16px;margin:18px 0 17px;box-shadow:var(--shadow)}.statusicon{width:35px;height:35px;border-radius:12px;background:#fff1da;color:#b9833f;display:grid;place-items:center;font-size:17px;flex-shrink:0}.statusicon.ok{background:#e2f4ed;color:#438a72}.statusicon.run{background:#e5f0ff;color:#5288bc}.statusicon.no{background:#fff0ee;color:#bb7373}.statusbar .text{flex:1;min-width:0}.statusbar .text b{font-size:13px}.statusbar .text small{color:#8ea1b7;font-size:11px;display:block}.workgrid{display:grid;grid-template-columns:minmax(0,1fr) 322px;gap:16px;align-items:start}.stack{display:flex;flex-direction:column;gap:16px;min-width:0}.cardpad{padding:19px 21px}.stageflow{display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:thin;padding:17px 1px 12px}.stage{display:flex;align-items:center;gap:7px;white-space:nowrap;min-width:max-content;flex-shrink:0;color:#a0afbf;font-size:11px;font-weight:750}.stage .num{border-radius:50%;height:23px;width:23px;display:grid;place-items:center;border:1px solid #d9e5ef;background:#f5f9fd;font-size:10px}.stage.done{color:#43857f}.stage.done .num{background:#e6f5f1;border-color:#cfebe1;color:#3f8d7b}.stage.now{color:#986e35}.stage.now .num{background:#fff0d9;border-color:#f0dcbd}.arr{padding:0 7px;color:#afc1d4;font-size:13px}.lane{border:1px solid #e7edf5;border-radius:17px;background:linear-gradient(125deg,#f6faffdd,#f8fbffba);padding:15px 14px 14px;margin-top:7px}.lanehead{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;font-weight:800}.branchgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}.branch{background:#ffffffcb;border:1px solid #e8eff9;text-align:left;border-radius:13px;padding:12px 11px;min-height:90px;color:#405f82;transition:.17s}.branch:hover{box-shadow:0 9px 19px rgba(90,129,170,.1);transform:translateY(-2px)}.branch b{font-size:12px;display:block}.branch span{font-size:10px;color:#94a6bb;display:block;margin-top:4px;line-height:1.5}.branch .state{float:right;color:#4e9985;font-size:13px}.branch.wait .state{color:#ba934b}.lanefoot{text-align:center;color:#97aabd;font-size:10px;margin-top:9px}.pause-strip{margin-top:13px;border:1px solid #f5e8d1;background:#fff8ebcf;color:#ac834d;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:11px;font-size:11px;font-weight:700}.feed{position:relative;padding-top:5px}.feed:before{position:absolute;top:27px;bottom:29px;left:12px;width:1px;background:linear-gradient(#cfe1f0,#e7eff7);content:""}.event{display:flex;align-items:flex-start;gap:12px;margin:18px 0;position:relative}.event:last-child{margin-bottom:3px}.dot{height:26px;width:26px;flex-shrink:0;display:grid;place-items:center;color:#6194bd;background:#e9f2fc;border:2px solid #fff;border-radius:50%;font-size:11px;position:relative;z-index:1}.dot.done{background:#e4f3ed;color:#539b86}.dot.wait{background:#fff0d9;color:#bb8d55}.dot.no{background:#fdecec;color:#bd6e7a}.bubble{flex:1;min-width:0}.eventtitle{font-weight:800;color:#4b729a;font-size:12px}.eventmeta{font-size:10px;color:#9baac0;margin-left:7px}.eventp{font-size:12px;color:#667c98;margin:3px 0 9px}.evidences{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.ref{border:1px solid #dbe8f7;background:#fbfdff;color:#5583aa;font-size:10px;font-weight:800;padding:4px 8px;border-radius:8px;cursor:pointer}.ref:hover{border-color:#a6c9e5;background:#eff7ff}.quietbox{background:#f0f6fd;border-left:3px solid #b8d0ed;border-radius:0 10px 10px 0;padding:10px 12px;font-size:11px;color:#7089a4;margin-top:9px}.quietbox.warm{background:#fff6e8;border-color:#edd4a6;color:#ad8351}.rightcard{padding:19px 17px}.approval{border:1px solid #f3e5d0;background:linear-gradient(135deg,#fff9f0d9,#ffffffea);border-radius:15px;padding:15px;margin-top:12px}.approval h3{font-size:20px;margin:7px 0;color:#274568}.approval .desc{font-size:11px;color:#8a9ab0;line-height:1.75}.approval .actions{display:flex;gap:7px;margin-top:15px}.approval .actions .btn{flex:1}.sidefile{display:flex;align-items:center;gap:10px;padding:11px;border:1px solid #e8eef6;border-radius:12px;background:#fff9;margin-top:8px;text-align:left;width:100%;color:var(--ink)}.sidefile:hover{border-color:#b2d1e9;background:#fff}.fileicon{width:34px;height:34px;border-radius:10px;background:#e8f2fd;display:grid;place-items:center;color:#5186ac;font-size:16px;flex-shrink:0}.sidefile b{display:block;font-size:11px}.sidefile small{display:block;color:#a2b1c1;font-size:10px}.portfolio-num{font-size:23px;font-weight:800;letter-spacing:-1px;color:#2f618a}.bar{height:8px;background:#ecf4fb;border-radius:30px;overflow:hidden}.bar>span{display:block;height:100%;background:linear-gradient(90deg,#c1d9f3,#9fd7d1);border-radius:30px}.prompt-panel{display:none;margin:14px 0 4px;padding:13px;border:1px solid #f0dcbd;background:#fff7e8;border-radius:13px;color:#8f6d40;font-size:11px}.prompt-panel.show{display:block}.mini-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.dossier-layout{display:grid;grid-template-columns:235px minmax(0,1fr) 280px;gap:16px;align-items:start;margin-top:18px}.doc-list{padding:14px}.docrow{border:1px solid transparent;border-radius:13px;background:transparent;width:100%;text-align:left;padding:12px;color:#4c6d92;margin-top:8px}.docrow.active{border-color:#e2edf9;background:#fff}.docrow:hover{background:#fff}.docrow b{font-size:12px;display:block}.docrow small{font-size:10px;color:#9aaabd}.report{padding:29px}.report h2{font-size:23px;letter-spacing:-.6px;margin:8px 0 10px}.report h3{font-size:14px;margin:21px 0 8px}.report p{font-size:12px;line-height:1.9;color:#647b97}.takeaway{background:linear-gradient(115deg,#eff6fe,#f8fbff);padding:17px;border:1px solid #e8f1fb;border-radius:14px}.claim{margin-top:13px;border-bottom:1px solid #edf1f6;padding-bottom:11px}.claim p{margin:0 0 8px}.source-card{display:block;width:100%;border:1px solid #e5eef7;background:#ffffffc2;border-radius:13px;padding:12px;margin-top:9px;text-align:left;color:#537399}.source-card:hover{background:#fff;border-color:#b3d4ed}.source-card b{font-size:11px;display:block}.source-card small{font-size:10px;color:#96a6bb}.docshelf{padding:17px}.artifact{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #ecf1f8;gap:8px}.artifact:last-child{border:0}.artifact b{font-size:11px}.artifact small{font-size:10px;color:#9caec3;display:block}.dashboard-top{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:20px}.stat{padding:18px 20px}.stat small{font-size:11px;color:#8ea0b7}.stat b{font-size:25px;letter-spacing:-.7px;display:block;margin-top:4px}.stat em{font-style:normal;font-size:10px;color:#86a2b3}.dashgrid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.85fr);gap:16px;align-items:start;margin-top:16px}.tickerbar{display:flex;gap:8px;flex-wrap:wrap}.ticker{border:1px solid #dfebf6;color:#6987a3;padding:7px 13px;background:#ffffffad;border-radius:11px;font-weight:800;font-size:11px}.ticker.active{background:#e9f3fe;color:#376e9c;border-color:#cfe3f7}.chart{width:100%;height:223px;margin:12px 0 0}.chart svg{width:100%;height:100%}.stocks{width:100%;border-collapse:collapse;margin-top:12px;font-size:12px}.stocks th{text-align:left;font-size:10px;color:#a4b1c2;font-weight:700;border-bottom:1px solid #e7eef5;padding:9px}.stocks td{padding:11px 9px;border-bottom:1px solid #edf2f7;color:#59718d}.stocks tr:last-child td{border:0}.positive{color:#398b7b!important}.negative{color:#b97577!important}.sources-spot{padding:15px;background:#f5f9fe;border-radius:13px;font-size:12px;color:#6d86a1}.notice{margin-top:16px;color:#a1aec2;font-size:10px}.footer{padding:24px 0;text-align:center;color:#adb8c8;font-size:10px}.drawer-back{position:fixed;inset:0;background:rgba(45,66,99,.28);backdrop-filter:blur(5px);z-index:50;display:none}.drawer-back.open{display:block}.drawer{position:absolute;right:0;top:0;bottom:0;width:min(490px,100vw);overflow:auto;background:linear-gradient(155deg,#f9fcff,#edf5fe);box-shadow:-25px 0 55px #34578422;padding:25px 28px}.detail-block{background:#ffffffa8;border:1px solid #e4edf7;border-radius:13px;padding:13px;margin-top:12px}.detail-block h4{margin:0 0 7px;font-size:12px}.detail-block pre{font-size:11px;line-height:1.7;color:#5f7996;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow:auto;margin:0}.detail-meta{display:grid;grid-template-columns:100px minmax(0,1fr);gap:10px;font-size:12px;padding:11px 0;border-bottom:1px solid #e3eef8}.detail-meta span{color:#91a4b9}.detail-meta b{font-weight:700;overflow-wrap:anywhere}.toast{position:fixed;bottom:23px;left:50%;transform:translateX(-50%) translateY(30px);background:#335c83;color:#fff;border-radius:13px;padding:11px 19px;z-index:80;font-size:12px;box-shadow:0 16px 30px #254d7660;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.mobilebar{display:none}
+@media(max-width:1210px){.main{padding:0 20px 50px}.workgrid{grid-template-columns:minmax(0,1fr) 286px}.dossier-layout{grid-template-columns:200px minmax(0,1fr)}.dossier-layout>.stack:last-child{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.dashgrid{grid-template-columns:1fr}}
+@media(max-width:980px){.side{width:73px;min-width:73px;padding-inline:9px}.brand{padding-inline:8px}.brandname,.brand small,.side .navsection,.navitem span,.sidebottom,.side .runitem,.side #newTaskBtn span{display:none}.navitem{justify-content:center;padding:13px 9px}.navitem svg{width:19px;height:19px}.workgrid{grid-template-columns:1fr}.rightcol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.rightcol>.panel:last-child{grid-column:1/-1}}
+@media(max-width:670px){body{font-size:13px}.app{display:block}.side{display:none}.main{padding:0 12px 90px}.topbar{padding:13px 5px 13px}.h1{font-size:23px}.hero{padding:21px 17px}.hero .subhead{font-size:11px}.compose textarea{min-height:70px}.statusbar{align-items:flex-start;padding:12px}.statusbar .text b{font-size:12px}.statusbar .text small{font-size:10px}.workgrid,.rightcol,.dossier-layout,.dashgrid{display:block}.stack,.rightcol{display:flex;flex-direction:column;gap:13px}.workgrid>.rightcol{margin-top:13px}.dossier-layout>.panel,.dossier-layout>.stack{margin-top:13px}.dossier-layout>.stack:last-child{display:flex}.cardpad{padding:17px 15px}.branchgrid{grid-template-columns:1fr;gap:6px}.branch{min-height:54px;padding:8px 10px}.branch span{display:inline;margin-left:4px}.panel{border-radius:19px}.pause-strip{align-items:flex-start}.dashboard-top{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{padding:14px}.stat b{font-size:19px}.stocks{font-size:11px}.report{padding:20px 17px}.mobilebar{position:fixed;left:0;right:0;bottom:0;padding:9px 10px calc(9px + env(safe-area-inset-bottom));background:#fffffff0;display:flex;justify-content:space-around;z-index:30;border-top:1px solid #e2edf8;backdrop-filter:blur(18px)}.mobilebar button{border:0;background:transparent;display:flex;align-items:center;flex-direction:column;gap:1px;color:#899eb5;font-size:10px;font-weight:700}.mobilebar button.active{color:#3a78aa}.mobilebar span{font-size:20px}.footer{padding-bottom:23px}.stageflow{gap:0}.topright .chip:nth-child(1){display:none}.pause-strip .btn{padding:7px}}
+
+/* FinGuard v0.5: configuration UX follows the original glass design. Static preview only. */
+.settings-head{padding:30px 31px;margin-bottom:17px;background:linear-gradient(125deg,rgba(255,255,255,.93),rgba(239,247,255,.82) 65%,rgba(255,247,229,.64));position:relative;overflow:hidden}
+.settings-head:after{content:'';position:absolute;width:270px;height:270px;border-radius:50%;filter:blur(45px);background:rgba(169,207,247,.28);right:-70px;top:-150px;pointer-events:none}
+.settings-head>*{position:relative;z-index:1}
+.settings-status{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.settings-status span{background:rgba(255,255,255,.73);border:1px solid #e4edf8;border-radius:12px;padding:8px 12px;font-size:11px;color:#7187a5;box-shadow:0 4px 12px #7fa5c50b}
+.settings-status strong{color:#3b638f}
+.settings-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,1fr);gap:16px;align-items:start}
+.settings-col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.settings-card{padding:24px;backdrop-filter:blur(22px)}
+.settings-cardhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.settings-cardhead small{display:block;font-size:11px;color:#91a1b5;font-weight:500;margin-top:2px}
+.settings-sectionlabel{font-size:10px;font-weight:800;letter-spacing:1.2px;color:#8a9db6;margin:16px 0 10px}
+.setting-field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;min-width:0}
+.setting-field label{font-size:12px;color:#647e9d;font-weight:750}
+.setting-field input,.setting-field select{width:100%;background:rgba(255,255,255,.79);border:1px solid #dce8f5;color:#315577;border-radius:13px;padding:12px 13px;outline:none;min-height:45px;box-shadow:inset 0 1px 2px rgba(114,154,190,.025)}
+.setting-field input:focus,.setting-field select:focus{border-color:#8cb6e0;box-shadow:0 0 0 3px rgba(105,162,214,.15)}
+.setting-field .help{font-size:11px;color:#96a9bd;line-height:1.5}
+.setting-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 13px}
+.setting-inputrow{display:flex;gap:8px;align-items:center}
+.setting-inputrow input{min-width:0;flex:1}
+.setting-inputrow button{white-space:nowrap;align-self:stretch}
+.setting-btnrow{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding-top:4px}
+.setting-choice{display:flex;gap:11px;align-items:flex-start;border:1px solid #e1eaf5;background:rgba(255,255,255,.67);padding:14px;border-radius:15px;cursor:pointer;transition:.2s}
+.setting-choice+.setting-choice{margin-top:9px}
+.setting-choice:hover{border-color:#b9d4f0;background:#fff}
+.setting-choice input{accent-color:#538dbd;margin-top:4px}
+.setting-choice b{display:block;color:#375c80;font-size:13px}
+.setting-choice small{display:block;font-size:11px;color:#8ca0b5;line-height:1.6;margin-top:3px}
+.setting-choice.active{border-color:#9bc5e8;background:#edf7ffbb}
+.setting-note{border-radius:14px;background:rgba(239,246,255,.88);border:1px solid #dfeaf7;padding:12px 13px;font-size:12px;color:#617d9c;line-height:1.75}
+.setting-note.warn{background:rgba(255,248,235,.82);border-color:#f3e6d1;color:#9b7b48}
+.setting-note.good{background:rgba(235,250,247,.88);border-color:#d7eee9;color:#368b80}
+.setting-checklist{display:flex;flex-direction:column;gap:11px;font-size:12px;color:#617d99}
+.setting-checklist div{display:flex;gap:8px;align-items:flex-start}
+.setting-icon{color:#6f9cbc;font-weight:800}
+.setting-summary{background:rgba(250,253,255,.72);border:1px solid #e5edf6;border-radius:14px;padding:14px;font-size:12px;color:#6e86a0;line-height:1.85}
+.setting-summary .keyvalue{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #e9f0f7;padding:7px 0}
+.setting-summary .keyvalue:last-child{border:0}
+.setting-summary b{color:#355e84;font-weight:800}
+.setting-code{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;background:#edf4fb;color:#58779a;border-radius:13px;padding:13px;font:11px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}
+.setting-onboard{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #edf2f7}
+.setting-onboard:last-child{border:0}
+.setting-num{display:grid;place-items:center;width:27px;height:27px;flex-shrink:0;border-radius:10px;background:#e4f0fb;color:#5784b3;font-size:11px;font-weight:850}
+.setting-onboard b{display:block;font-size:12px;color:#476786}
+.setting-onboard small{display:block;font-size:11px;color:#92a5b7;line-height:1.7;margin-top:2px}
+#settingsPreviewKeyStatus{word-break:break-word}
+@media(max-width:1050px){.settings-layout{grid-template-columns:1fr}}
+@media(max-width:670px){.settings-head{padding:23px 18px}.settings-card{padding:18px}.setting-grid{grid-template-columns:1fr}.setting-btnrow{align-items:stretch}.setting-btnrow .btn{flex:1}.settings-status{gap:6px}.settings-status span{font-size:10px}.settings-layout{gap:12px}}
+
+
+
+/* FinGuard v0.6 delta: v0.5 visual system retained; readable, calm controls */
+.xsmall{font-size:12px;color:#627d99}.muted{color:#657f99}.eyebrow{color:#6687a7;font-size:11px}.tagline{font-size:11px}.subhead{color:#637f9f;font-size:14px}.chip.tiny{font-size:10px}.eventmeta{font-size:11px;color:#6e859c}.eventp{font-size:13px;color:#4b698b;line-height:1.8}.approval .desc,.quietbox,.pause-strip{font-size:12px}.branch span{font-size:11px;color:#6d849f}.source-card small,.artifact small,.docrow small,.sidefile small{font-size:11px;color:#718ba4}.settings-cardhead small,.setting-choice small,.setting-onboard small{color:#70869f;font-size:12px}.notice{color:#68839f;font-size:12px}.setting-note{line-height:1.7}.btn:disabled, input:disabled,select:disabled{cursor:not-allowed}.btn:disabled{transform:none!important;filter:none!important;opacity:.56}.setting-choice.unavailable{background:#f3f7fb9c;border-color:#e5ebf2;opacity:.66;cursor:not-allowed}.setting-choice.unavailable input{pointer-events:none}.setting-choice.unavailable b{color:#6b849d}
+.hero-toolbar{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin-bottom:4px}.hero-toggle{background:#f4f8fbdc;border-color:#e3ebf5;min-height:31px;padding:6px 11px}.hero-compact-title{margin-right:auto;font-weight:800;color:#416989;font-size:14px}.hero.collapsed{padding-top:18px;padding-bottom:17px}.hero.collapsed .hero-intro{display:none}.hero.collapsed .hero-compact-title{display:block}.hero-intro .subhead{margin-bottom:0}
+.run-mode-wrap{margin-top:15px;background:rgba(239,246,253,.6);border:1px solid rgba(217,233,248,.85);border-radius:15px;padding:13px 14px}.run-mode-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.run-mode-head b{display:block;font-size:13px;color:#496d90}.run-mode-head small{display:block;font-size:11px;margin-top:4px;color:#6c86a1}.mode-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}.mode-option{display:flex;gap:10px;align-items:flex-start;border:1px solid #dce8f5;border-radius:12px;background:rgba(255,255,255,.73);padding:11px 12px}.mode-option.selected{border-color:#bddaf0;background:rgba(244,251,255,.95);box-shadow:0 3px 10px #8ab4da1a}.mode-option input{accent-color:#568fb9;margin-top:3px;flex-shrink:0}.mode-icon{display:grid;place-items:center;min-width:25px;height:25px;border-radius:9px;background:#e4f2fc;color:#467da9}.mode-option b{display:block;font-size:12px;color:#355e85}.mode-option small{display:block;font-size:11px;color:#617e9d;line-height:1.5;margin-top:4px}.mode-option em{font-size:10px;font-style:normal;background:#f0f4f8;border:1px solid #e0e8f2;padding:2px 6px;border-radius:10px;color:#7a92a9}.mode-option.unavailable{opacity:.65;cursor:not-allowed}.mode-option.unavailable *{cursor:not-allowed}.mode-info{margin-top:10px;font-size:11px;color:#6e879e;display:flex;align-items:center;gap:7px;flex-wrap:wrap}.mode-info strong{color:#456e95}.mode-info .link{font-size:11px;margin-left:auto}.mode-separator{opacity:.55}.trace-switch{display:inline-flex;gap:3px;align-items:center;border-radius:12px;background:#edf5fb;padding:4px;flex-shrink:0}.trace-pill{border:0;background:none;border-radius:9px;color:#6b88a4;padding:7px 10px;font-size:11px;font-weight:800}.trace-pill.active{background:#fff;color:#3d729b;box-shadow:0 2px 7px #567caa19}.decision-inline{border-top:1px solid #ebf1f7;margin-top:16px;padding-top:17px;color:#466a91;font-size:12px}.decision-quads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.decision-quads.compact{gap:8px;margin-top:12px}.decision-quad{border:1px solid #e2edf7;border-radius:13px;background:linear-gradient(145deg,#f9fcffcf,#f0f8ffd4);padding:13px}.decision-quad .decision-label{font-size:10px;letter-spacing:.8px;color:#5a83a7;font-weight:850}.decision-quad p{font-size:12px;line-height:1.7;margin:8px 0;color:#4d6e8e}.decision-quad .ref{margin-right:4px;margin-top:2px}.report-decision-panel{border-radius:16px;background:#ffffff78;border:1px solid #dce9f5;padding:16px;margin:17px 0}.trace-list{display:flex;flex-direction:column;gap:10px;margin-top:12px}.trace-entry{border:1px solid #e2ebf6;background:#f9fcffb5;border-radius:13px;padding:12px 14px}.trace-entry summary{cursor:pointer;font-size:12px;font-weight:750;color:#467397;line-height:1.6}.trace-entry pre{white-space:pre-wrap;word-break:break-word;background:#eff6fd;border-radius:10px;padding:13px;font-size:11px;line-height:1.65;overflow:auto;color:#55728e}.trace-entry .trace-meta{color:#849bb1;font-size:11px;margin-top:5px}.preview-note{padding:14px;border-radius:12px;background:#fff9ebd9;border:1px solid #f2e8d4;color:#8b744b;font-size:12px;line-height:1.7}.empty-state{border:1px dashed #d5e5f4;padding:17px;border-radius:13px;background:#f9fcff;line-height:1.8;color:#547796;font-size:12px}.holdings-area{margin-top:18px;border-top:1px solid #e8f0f7;padding-top:15px}.holdings-area b{font-size:12px;color:#426786}.holding-line{display:grid;grid-template-columns:1fr auto auto;gap:12px;padding:11px 0;border-bottom:1px solid #e7eef7;font-size:12px;color:#607e99}.holding-line:last-child{border:0}.holding-line strong{color:#375f84}.validation-levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.validation-levels>div{background:#f1f7fe;border-radius:11px;padding:11px}.validation-levels span{display:block;color:#6e849b;font-size:11px}.validation-levels b{display:block;color:#4b7899;font-size:11px;margin-top:7px}.validation-levels b.pending-check{color:#9a865f}.auth-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.8fr);gap:17px;margin-top:19px}.auth-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.auth-form-grid input,.auth-form-grid select{color:#7189a5;background:#f6f9fce3}.auth-head{background:linear-gradient(115deg,rgba(255,255,255,.94),rgba(238,246,255,.87),rgba(247,242,230,.8))}.kill-row{display:flex;justify-content:space-between;gap:12px;align-items:center}.kill-row b{color:#46688b}.kill-row p{font-size:12px;color:#718ca5}.auth-stages{margin-top:16px}.auth-stages>div{display:grid;grid-template-columns:35px 1fr;gap:2px 9px;margin:0 0 18px}.auth-stages>div>span{grid-row:span 2;color:#7da0c1;font-size:13px;font-weight:850}.auth-stages b{font-size:12px;color:#4c7295}.auth-stages small{font-size:11px;color:#738ba2}.authorization-note{margin-top:12px;font-size:12px;color:#7189a4}
+@media(max-width:1170px){.trace-switch{order:2}.auth-layout{grid-template-columns:1fr}.workgrid .rightcol{position:static}}
+@media(max-width:670px){.workgrid{display:flex;flex-direction:column;gap:13px}.workgrid>.stack:first-child{order:1;width:100%}.workgrid>.rightcol{display:contents}.workgrid>.rightcol #decisionPanel{order:0;width:100%}.workgrid>.rightcol .panel:not(#decisionPanel){order:2;width:100%}.hero-toolbar{margin-bottom:9px}.mode-options{grid-template-columns:1fr}.mode-info .link{margin-left:0}.hero .subhead{font-size:12px}.mode-option small,.run-mode-head small{font-size:12px}.mode-info{font-size:12px}.trace-switch{width:max-content}.decision-quads{grid-template-columns:1fr}.decision-quads.compact{grid-template-columns:1fr}.auth-form-grid{grid-template-columns:1fr}.kill-row{align-items:stretch;flex-direction:column}.validation-levels{grid-template-columns:1fr}.mobilebar{overflow-x:auto;justify-content:space-between;gap:9px}.mobilebar button{flex:0 0 auto;min-width:54px;font-size:10px}.approval .desc{font-size:13px}.rightcol #decisionPanel{border-color:#d9e9f7}.statusbar .text small{font-size:12px}.statusbar .text b{font-size:13px}.trace-pill{font-size:11px}}
+
+.hero.collapsed .run-mode-head,.hero.collapsed .mode-options{display:none}
+.hero.collapsed .run-mode-wrap{margin-top:6px;padding:7px 11px}
+.hero.collapsed .mode-info{margin-top:0}
+@media(max-width:670px){.hero.collapsed{padding-top:14px;padding-bottom:14px}.hero.collapsed .compose{margin:10px 0 8px}.hero.collapsed .compose textarea{min-height:50px}.hero.collapsed .quick{display:none}.hero.collapsed .run-mode-wrap{padding:7px 9px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand"><div class="brandicon">✦</div><div><div class="brandname">FinGuard</div><small>RESEARCH STUDIO</small></div></div>
+<button class="btn" id="newTaskBtn" style="width:100%"><span>＋ 创建研究任务</span><span class="hidden">＋</span></button>
+<div class="eyebrow navsection">WORKSPACE</div>
+<button class="navitem active" data-page="workspace"><svg fill="none" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5V21H4z"></path><path d="M9 21v-7h6v7"></path></svg><span>对话研究</span></button>
+<button class="navitem" data-page="library"><svg fill="none" stroke-width="1.8" viewbox="0 0 24 24"><path d="M5 3h14v18H5zM9 7h6M9 11h6M9 15h4"></path></svg><span>研究档案</span></button>
+<button class="navitem" data-page="dashboard"><svg fill="none" stroke-width="1.8" viewbox="0 0 24 24"><rect height="8" rx="1" width="8" x="3" y="3"></rect><rect height="5" rx="1" width="8" x="13" y="3"></rect><rect height="11" rx="1" width="8" x="13" y="10"></rect><rect height="8" rx="1" width="8" x="3" y="13"></rect></svg><span>金融看板</span></button>
+<button aria-label="授权中心" class="navitem" data-page="authorization"><svg fill="none" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 2 4 6v6c0 5 3 8 8 10 5-2 8-5 8-10V6z"></path><path d="m9 12 2 2 4-4"></path></svg><span>授权中心</span></button><button class="navitem" data-page="settings"><svg fill="none" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10 2.1 2.1M4.9 19.1 7 17m10-10 2.1-2.1"></path></svg><span>设置 · API</span></button>
+<div class="eyebrow navsection" style="margin-top:27px">RECENT RESEARCH</div>
+<button class="runitem active" data-run="pending"><b>美股三家公司对比</b><span>FG-014 · 等待审批</span></button>
+<button class="runitem" data-run="running"><b>新一轮并发研究</b><span>FG-015 · 正在检索</span></button>
+<button class="runitem" data-run="complete"><b>NVDA 风险研究</b><span>FG-013 · 研究已完成</span></button>
+<button class="runitem" data-run="blocked"><b>AAPL 价格偏离复核</b><span>FG-012 · 风控阻断</span></button><div id="recentRunsV06"></div>
+<div class="sidebottom"><span class="chip teal tiny">● SYNTHETIC DEMO</span><div class="muted">独立静态设计原型<br/>不接入真实行情或券商</div></div>
+</aside>
+<main class="main"><div class="content">
+<div class="topbar"><div class="crumb">FinGuard <span style="color:#c2cfdd">/</span> <strong id="breadcrumb">对话研究</strong></div><div class="topright"><span class="chip">● LOCAL PREVIEW</span><span class="chip blue">DEMO DATA</span><div class="avatar">FG</div></div></div>
+<section class="page active" id="workspace">
+<div class="hero panel"><div class="hero-toolbar"><span class="hero-compact-title" hidden="" id="heroCompactTitle">✧ 研究指令 · 与 FinGuard 继续交流</span><button aria-controls="heroIntro" aria-expanded="true" class="btn hero-toggle" id="heroToggle" type="button">收起介绍 ↑</button></div><div class="hero-intro" id="heroIntro"><div class="tagline">YOUR RESEARCH COPILOT · 研究即对话</div><h1 class="h1">从一个问题开始，<span style="color:#568cb9">让研究有迹可循。</span></h1><div class="subhead">查证据、看并发进度、审阅决策。每份研究都自动沉淀为可复核的档案。</div></div>
+<div class="run-mode-wrap" id="runModeWrap">
+<div class="run-mode-head"><div><b>任务运行模式</b><small>运行模式 = 行动权限；数据来源 = Demo / Live。当前 HTML 仅可操作预览，不执行模型。</small></div><span class="chip teal tiny">Research 默认可用</span></div>
+<div aria-label="运行模式选择" class="mode-options" role="group">
+<label class="mode-option selected" id="researchModeLabel"><input checked="" name="taskRunMode" type="radio" value="research"/><span class="mode-icon">✧</span><span><b>Research</b><small>事件 + 量化研究 · 可提出需人工审批的 Paper 提案</small></span></label>
+<label aria-disabled="true" class="mode-option unavailable" id="autoPaperModeLabel"><input disabled="" name="taskRunMode" type="radio" value="auto_paper"/><span class="mode-icon">◇</span><span><b>Auto Paper <em>未开放</em></b><small>未来：受限授权自动模拟买卖；目前不可选择或执行</small></span></label>
+</div>
+<div class="mode-info">当前运行：<strong id="activeRunMode">Research</strong><span class="mode-separator">·</span>数据来源：<strong>Demo Market</strong><button class="link" data-page="authorization" type="button">了解授权中心 ↗</button></div>
+<label class="mode-option" id="proposalPermissionOption" style="margin-top:10px"><input id="allowPaperOrderProposals" type="checkbox"/><span class="mode-icon">◇</span><span><b>允许提出模拟交易提案</b><small>仅允许 Agent 提出待审批 Paper 订单；批准仍必须由你通过后端决定。</small></span></label>
+</div><div class="compose"><textarea aria-label="研究指令" id="promptInput" placeholder="例如：对比 AAPL、MSFT 和 NVDA 的事件与量化指标；高风险时不要提出交易。"></textarea><button class="btn primary" id="sendBtn">发送 ↗</button></div>
+<div class="between" style="flex-wrap:wrap;gap:8px"><div class="quick"><button data-quick="比较三只股票的事件与指标，并给出可核验的研究结论。">三股对比</button><button data-quick="解释当前 MSFT 订单的依据与风险，不要批准或拒绝。">解释当前决策</button><button data-quick="不买 MSFT 了，转而研究 AAPL；暂时不要交易。">修改研究方向</button></div><span class="chip tiny">交易默认仅为 Paper Trading</span></div>
+<div class="prompt-panel" id="promptResolution"><b>你正在修改待审批任务</b><div id="promptResolutionText">现有订单仍待审批，新的研究要求不能悄悄替代当前审批。</div><div class="mini-actions"><button class="btn primary" id="rejectAndContinue">拒绝旧提案并继续研究</button><button class="btn" id="keepAndNote">只记录新要求，保留提案</button></div></div>
+</div>
+<div class="statusbar" id="statusbar"><div class="statusicon" id="statusIcon">Ⅱ</div><div class="text"><b id="statusTitle">FinGuard 正等待你审阅模拟订单</b><small id="statusDescription">资料已经收集并生成初步研究结论。任务停在人工审批，不是错误。</small></div><button class="btn" id="goPause">定位暂停节点 ↓</button></div>
+<div class="workgrid">
+<div class="stack">
+<div class="panel cardpad" id="workflowPanel"><div class="between"><div><div class="heading">执行路线 <span style="font-size:10px;color:#a1b1c2;font-weight:500">· 按真实事件动态生成</span></div><div class="muted xsmall">同一 Agent 并行调度多项只读工具，不等于多个独立 AI Agent。</div></div><span class="chip tiny" id="runIdBadge">RUN FG-014</span></div><div class="stageflow" id="stageflow"></div><div class="lane"><div class="lanehead"><div>↳ 并发资料检索 <span class="muted xsmall" style="font-weight:500">· 一轮工具批次</span></div><span class="chip teal tiny" id="branchBadge">3 / 3 已完成</span></div><div class="branchgrid" id="branchGrid"></div><div class="lanefoot">↳ 汇总工具回执 → 返回 Agent → 形成研究判断</div></div><div class="pause-strip" id="flowAlert"><span>Ⅱ　目前停在「人工审批」，等待明确决定</span><button class="btn" id="flowJump" style="min-height:28px">查看提案 ↗</button></div></div>
+<div class="panel cardpad"><div class="between"><div><div class="heading">Agent 工作记录</div><div class="muted xsmall">默认显示研究进度；技术 Trace 可查看调用参数、tool_call_id 与结构化结果（此页均为合成演示）。</div></div><div aria-label="工作记录显示方式" class="trace-switch" role="group"><button aria-pressed="true" class="trace-pill active" id="progressViewBtn" type="button">研究进度</button><button aria-pressed="false" class="trace-pill" id="technicalViewBtn" type="button">技术 Trace</button></div><button class="link" id="showTrace">查看完整审计事件 ↗</button></div><div class="feed" id="feed"></div><div class="decision-inline"><div class="between"><b>Signal · Thesis · Risk · Decision</b><button class="link" data-page="library" type="button">查看完整研究档案 ↗</button></div><div class="decision-quads compact" id="workspaceDecisionMatrix"></div></div></div>
+</div>
+<aside class="stack rightcol">
+<div class="panel rightcard" id="decisionPanel"><div class="between"><div><div class="heading">决策中心</div><div class="muted xsmall">下一步需要你做什么</div></div><span class="chip orange tiny" id="decisionTag">HITL</span></div><div id="decisionBody"></div></div>
+<div class="panel rightcard"><div class="between"><div><div class="heading">这次研究保存了什么？</div><div class="muted xsmall">报告、证据、计算和决定整理在同一个档案</div></div><button class="link" data-page="library">全部资料 ↗</button></div><div id="shelfPreview"></div><div class="evidences" id="miniEvidence"></div></div>
+<div class="panel rightcard"><div class="between"><div><div class="heading">Paper Portfolio</div><div class="muted xsmall">虚拟账户 · 与真实资产隔离</div></div><button class="link" data-page="dashboard">查看资产 ↗</button></div><div class="portfolio-num" id="miniEquity">$100,000.00</div><div class="bar"><span id="miniBar" style="width:100%"></span></div><div class="muted xsmall" id="miniPositions" style="margin-top:9px">现金 $100,000 · MSFT 0 股</div></div>
+</aside>
+</div>
+</section>
+<section class="page" id="library">
+<div class="between" style="flex-wrap:wrap"><div><div class="tagline">RESEARCH LIBRARY · 知识与证据都留得住</div><h1 class="h1">研究档案</h1><div class="subhead">报告是入口，原始数据、指标底稿和决策记录才是可验证的研究资产。</div></div><div style="display:flex;gap:8px"><button class="btn" id="exportMarkdown">↓ 导出报告 .md</button><button class="btn" id="exportBundle">↓ 导出档案 .json</button></div></div>
+<div class="dossier-layout"><div class="panel doc-list"><div class="eyebrow" style="margin:3px 7px 11px">RESEARCH SESSIONS</div><button class="docrow active" data-doc="pending"><b>美国科技股对比研究</b><small>FG-014 · AAPL / MSFT / NVDA</small></button><button class="docrow" data-doc="complete"><b>NVDA 风险审查</b><small>FG-013 · 研究完成</small></button><button class="docrow" data-doc="blocked"><b>AAPL 价格偏离复核</b><small>FG-012 · 风控阻断</small></button><div class="notice" style="padding:10px">演示模式：这些研究记录为预置合成样例，不是联网生成的报告。</div><div id="dynamicDocRows"></div></div>
+<article class="panel report"><div class="between"><div class="eyebrow" id="reportLabel">RESEARCH REPORT · FG-014</div><span class="chip blue tiny">SYNTHETIC DATA</span></div><h2 id="reportTitle">美股科技公司：事件与量化交叉研究</h2><div class="muted xsmall" id="reportMeta">观察池 AAPL / MSFT / NVDA · Demo Snapshot T0</div><div class="takeaway" style="margin-top:18px"><div class="eyebrow">EXECUTIVE SUMMARY</div><div class="headline" id="reportSummary" style="margin-top:7px">初步关注 MSFT，但仅在规则允许、人工审批后进行模拟交易。</div><div class="muted small" style="margin-top:7px">结论属于合成场景研究示例，不是投资建议，也不代表真实市场情况。</div></div><div class="report-decision-panel"><div class="between"><div><div class="eyebrow">DECISION INTELLIGENCE · 可核验分析</div><h3 style="margin:5px 0 12px">Signal / Thesis / Risk / Decision</h3></div><span class="chip tiny">SYNTHETIC</span></div><div class="decision-quads" id="reportDecisionMatrix"></div></div><div id="reportClaims"></div><h3>研究局限与反面证据</h3><p id="reportRisks">事件文字并不能证明未来收益；价格趋势可能已反映预期，历史波动率无法消除未来风险。当前只是演示数据。</p><div class="quietbox" id="reportDecision">本次建议：提交模拟买入申请 → 等待人工批准；未批准前虚拟账户保持不变。</div><div class="between" style="margin-top:21px;flex-wrap:wrap"><button class="btn primary" id="backToRun">返回对应任务 ↗</button><button class="btn" id="copyReport">复制报告摘要</button></div></article>
+<div class="stack"><div class="panel docshelf"><div class="heading">资料目录</div><div class="muted xsmall">每次研究按 Run ID 整理，不把原始数据埋在聊天里</div><div id="artifactList"></div></div><div class="panel docshelf"><div class="heading">原始证据与出处</div><div class="muted xsmall">点击编号查看来源、时间和回执</div><div id="sourceList"></div></div></div>
+</div>
+</section>
+<section class="page" id="dashboard">
+<div class="between" style="flex-wrap:wrap"><div><div class="tagline">FINANCIAL DESK · MARKET &amp; PORTFOLIO</div><h1 class="h1">金融看板</h1><div class="subhead">看资产、看市场，再从数据进入研究任务；这是金融信息视图，不代替 Agent 判断。</div></div><span class="chip blue">SYNTHETIC MARKET · T0</span></div>
+<div class="dashboard-top"><div class="panel stat"><small>静态预置模拟账户权益</small><b id="dashEquity">$100,000</b><em>USD · Paper account</em></div><div class="panel stat"><small>可用现金</small><b id="dashCash">$100,000</b><em>不连接真实券商</em></div><div class="panel stat"><small>持有标的</small><b id="dashPositions">0</b><em>模拟仓位</em></div><div class="panel stat"><small>研究观察池</small><b>3</b><em>AAPL · MSFT · NVDA</em></div></div>
+<div class="dashgrid"><div class="stack"><div class="panel cardpad"><div class="between"><div><div class="heading">行情概览</div><div class="muted xsmall">以下曲线和价格均为固定合成数据</div></div><span class="chip tiny">Demo T0</span></div><div class="tickerbar" style="margin-top:17px"><button class="ticker active" data-ticker="MSFT">MSFT</button><button class="ticker" data-ticker="AAPL">AAPL</button><button class="ticker" data-ticker="NVDA">NVDA</button></div><div class="between" id="chartLabel" style="margin:14px 0 0"><span class="heading">MSFT · Synthetic price series</span><span class="heading">$420.50</span></div><div class="chart" id="chart"></div></div><div class="panel cardpad"><div class="between"><div class="heading">观察池 · 量化与资料入口</div><button class="link" data-page="workspace">向 Agent 提问 ↗</button></div><table class="stocks"><thead><tr><th>代码</th><th>报价 (Demo)</th><th>趋势示意</th><th>数据来源</th><th>操作</th></tr></thead><tbody id="stockTable"></tbody></table></div></div>
+<div class="stack"><div class="panel rightcard"><div class="between"><div class="heading">资产构成</div><span class="chip tiny">PAPER ONLY</span></div><div class="portfolio-num" id="compositionNum" style="margin:11px 0 7px">$100,000.00</div><div class="bar" style="height:10px"><span id="cashPart" style="width:100%"></span></div><div class="muted small" id="compositionText" style="margin-top:11px">现金 100% · 暂无持仓</div><div class="holdings-area"><div class="between"><b>模拟持仓明细</b><span class="chip tiny">预置样例 · 不是真实成交</span></div><div class="holdings-table" id="holdingsTable"></div></div></div><div class="panel rightcard"><div class="heading">研究快照</div><div class="muted xsmall">仪表盘的信息，都能关联到对应证据</div><div class="sources-spot" style="margin-top:12px"><b style="color:#4f7194">MSFT · 研究观察</b><p style="margin:6px 0;color:#849ab1">指标与事件的组合只能提供研究线索，并非保证收益的信号。</p><button class="link" id="dashboardToReport">打开对应研究与出处 ↗</button></div></div><div class="panel rightcard"><div class="heading">模拟订单记录</div><div class="muted xsmall">审批与执行结果严格分开</div><div id="ledgerPreview" style="padding-top:12px"></div></div></div>
+</div>
+</section>
+<section class="page" id="settings">
+<div class="panel settings-head">
+<div class="tagline">SETTINGS · CONNECT YOUR OWN MODEL</div>
+<h1 class="h1">先接入模型，<span style="color:#568cb9">再让研究真正开始。</span></h1>
+<div class="subhead">统一管理模型接口、市场数据与运行边界。这里只演示配置体验，不会向服务器发送或保存密钥。</div>
+<div class="settings-status"><span><strong>LLM</strong> · 等待你配置</span><span><strong>Market</strong> · DEMO 可用</span><span><strong>Live</strong> · 尚未接入提供商</span><span><strong>Broker</strong> · Paper only</span></div>
+</div>
+<div class="settings-layout">
+<div class="settings-col">
+<div class="panel settings-card">
+<div class="settings-cardhead"><div><div class="heading">AI 模型连接</div><small>由 Python Harness 发起调用；不是浏览器直接请求模型</small></div><span class="chip blue tiny">OpenAI-Compatible</span></div>
+<div class="setting-note warn" style="margin-bottom:17px"><b>原型安全提示：</b>此 HTML 是静态展示版，请勿输入真实 API Key。以下表单只在页面内校验格式，不会发起 API 请求、不会持久化密钥。</div>
+<div class="setting-field"><label for="fgProvider">模型服务商</label><select id="fgProvider"><option value="custom">自定义 OpenAI 兼容接口</option><option value="openai">OpenAI</option><option value="deepseek">DeepSeek</option><option value="qwen">通义千问（兼容模式）</option><option value="ollama">本地 Ollama（兼容模式）</option></select></div>
+<div class="setting-field"><label for="fgBaseUrl">Base URL</label><input autocomplete="off" id="fgBaseUrl" placeholder="https://api.example.com/v1" spellcheck="false" type="url"/><div class="help">对应项目的 LLM_BASE_URL；使用后端配置，页面不直接连外部 API。</div></div>
+<div class="setting-grid">
+<div class="setting-field"><label for="fgModel">Model ID</label><input autocomplete="off" id="fgModel" placeholder="需要支持 tool_calls" spellcheck="false" type="text"/></div>
+<div class="setting-field"><label for="fgKey">API Key · 仅后端配置（此处禁用）</label><div class="setting-inputrow"><input aria-label="密钥由后端保存，前端不可填写" autocomplete="off" disabled="disabled" id="fgKey" placeholder="静态预览不接受密钥 · 请由本地 Python 后端配置" spellcheck="false" type="password"/><button aria-label="显示或隐藏密钥" class="btn" disabled="disabled" id="fgKeyToggle" type="button">后端管理</button></div></div>
+</div>
+<div class="setting-btnrow"><button class="btn primary" id="fgValidate" type="button">校验填写格式</button><button class="btn" id="fgCopyEnv" type="button">复制无密钥配置</button></div>
+<div aria-live="polite" class="setting-note" id="fgValidation" role="status" style="margin-top:13px">尚未校验。正式版应由后端通过真实模型的 tool_calls 探针检测连接，而不是依赖本地表单格式。</div><div aria-label="三层能力校验状态" class="validation-levels"><div><span>① 填写格式</span><b id="fieldCheckStatus">未校验</b></div><div><span>② 模型连接</span><b class="pending-check">未测试 · 需后端</b></div><div><span>③ Tool Calling</span><b class="pending-check">未验证 · 需后端</b></div></div>
+</div>
+<div class="panel settings-card">
+<div class="settings-cardhead"><div><div class="heading">市场数据来源</div><small>Demo 是完整合成资料；Live 必须明确真实提供商能力</small></div><span class="chip tiny">DATA PROVIDER</span></div>
+<label class="setting-choice active" id="fgModeDemoLabel"><input checked="" name="fgDataMode" type="radio" value="demo"/><span><b>Demo Market · 内置数据</b><small>预设 AAPL / MSFT / NVDA、事件、20 日指标与 T0/T1 审批场景。无需额外行情 Key。</small></span></label>
+<label aria-disabled="true" class="setting-choice unavailable" id="fgModeLiveLabel"><input disabled="disabled" name="fgDataMode" type="radio" value="live"/><span><b>Live Market · 尚未实现（不可启用）</b><small>真实报价和财经新闻需要另行选定 Provider。当前上传的 Core 只实现 Demo，不能误认为已有实时行情。</small></span></label>
+<div class="setting-note good" id="fgModeStatus" style="margin-top:13px">当前预览选择：Demo。静态原型的数据模式不会改变真实研究任务或 Core 配置。</div>
+</div>
+</div>
+<div class="settings-col">
+<div class="panel settings-card">
+<div class="settings-cardhead"><div><div class="heading">配置引导</div><small>从零运行一个真实 FinGuard Agent 的最短路径</small></div></div>
+<div class="setting-onboard"><span class="setting-num">01</span><div><b>连接支持工具调用的 LLM</b><small>设置 Base URL、Model ID 与 API Key。</small></div></div>
+<div class="setting-onboard"><span class="setting-num">02</span><div><b>执行模型能力检测</b><small>不仅测试普通聊天，还要验证 tool_calls 返回格式；正式功能待 Core 提供。</small></div></div>
+<div class="setting-onboard"><span class="setting-num">03</span><div><b>用 Demo 行情开展研究</b><small>不用券商 API；所有订单只是虚拟账户记账。</small></div></div>
+</div>
+<div class="panel settings-card">
+<div class="settings-cardhead"><div><div class="heading">Harness 运行上限</div><small>历史上传版本中的示例默认值 · 当前运行实例尚未读取</small></div><span class="chip tiny">静态示意值</span></div>
+<div class="setting-summary">
+<div class="keyvalue"><span>最大模型步骤</span><b>12</b></div>
+<div class="keyvalue"><span>最大工具调用</span><b>40</b></div>
+<div class="keyvalue"><span>模型请求超时</span><b>60s</b></div>
+<div class="keyvalue"><span>工具调用超时</span><b>20s</b></div>
+<div class="keyvalue"><span>交易类型</span><b>仅模拟买卖</b></div>
+</div>
+<div class="muted xsmall" style="margin-top:11px">可编辑运行偏好需要与 Agent A 协商稳定接口。预览不允许在前端绕过 Harness 风控。</div>
+<div class="setting-note warn">当前数字不代表本机正在运行的真实配置。正式版须由 Python Core 提供只读运行上限状态，前端不可自行覆盖。</div></div>
+<div class="panel settings-card">
+<div class="settings-cardhead"><div><div class="heading">安全与现有代码</div><small>基于 FinGuard 本地研究服务</small></div></div>
+<div class="setting-checklist">
+<div><span class="setting-icon">✓</span><span>现有 Python 读取 LLM_API_KEY / LLM_BASE_URL / LLM_MODEL。</span></div>
+<div><span class="setting-icon">✓</span><span>已有 FastAPI、任务 API 和本地模拟账户。</span></div>
+<div><span class="setting-icon">!</span><span>现有 /api/config/public 是只读说明，不是保存或测试连接接口。</span></div>
+<div><span class="setting-icon">!</span><span>现有代码未看到 .env 自动加载逻辑；复制文件不等于环境变量生效。</span></div>
+<div><span class="setting-icon">✓</span><span>正式版应脱敏返回配置状态，限制本机访问，避免日志泄露。</span></div>
+</div>
+</div>
+<div class="panel settings-card">
+<div class="settings-cardhead"><div><div class="heading">无密钥配置预览</div><small>可复制给本地 Codex；不会含 API Key</small></div></div>
+<pre class="setting-code" id="fgEnvPreview">LLM_BASE_URL=https://api.example.com/v1
+LLM_MODEL=tool-calling-model-id
+# LLM_API_KEY: 在本机受保护配置中填写</pre>
+</div>
+</div>
+</div>
+</section>
+
+<section class="page" id="authorization">
+<div class="panel settings-head auth-head"><div class="tagline">AUTHORIZATION CENTER · FUTURE CAPABILITY</div><h1 class="h1">模拟交易授权中心</h1><div class="subhead">规划未来 Auto Paper 的范围、额度、有效期与停止机制。本版本只能预览规则，不能创建或激活授权。</div><div class="settings-status"><span><strong>Research</strong> · 默认可用</span><span><strong>Auto Paper</strong> · 未开放</span><span><strong>Trading Permission</strong> · 不存在有效授权</span></div></div>
+<div class="auth-layout">
+<div class="stack">
+<div class="panel settings-card"><div class="settings-cardhead"><div><div class="heading">授权范围 · 未来设计</div><small>这不是可执行的授权表单，所有字段均禁用</small></div><span class="chip orange tiny">PREVIEW ONLY</span></div>
+<div class="auth-form-grid"><div class="setting-field"><label for="authUniverse">允许标的</label><select disabled="" id="authUniverse"><option>仅白名单美股 · AAPL / MSFT / NVDA</option></select></div><div class="setting-field"><label for="authType">订单类型</label><select disabled="" id="authType"><option>仅 Paper BUY / SELL · 不含真实券商</option></select></div><div class="setting-field"><label for="authPerOrder">单笔最大模拟金额</label><input disabled="" id="authPerOrder" type="text" value="$500（规划示例）"/></div><div class="setting-field"><label for="authDaily">每日最大模拟金额</label><input disabled="" id="authDaily" type="text" value="$2,000（规划示例）"/></div><div class="setting-field"><label for="authExpiry">授权期限</label><input disabled="" id="authExpiry" type="text" value="24 小时（规划示例）"/></div><div class="setting-field"><label for="authRisk">核心限制</label><input disabled="" id="authRisk" type="text" value="持仓 ≤20% · 现金缓冲 ≥10%"/></div></div>
+<div class="setting-note warn">Future API 必须由后端持久化授权记录、检查额度与期限，并且每次执行前重新校验。填写这个页面不会解除 HITL，也不会执行订单。</div>
+<button class="btn primary" disabled="" title="Auto Paper 尚未开放">创建授权 · 尚未开放</button>
+</div>
+<div class="panel settings-card"><div class="settings-cardhead"><div><div class="heading">紧急停止 · Kill Switch</div><small>未来阻断新的自动模拟交易；不可替代账户端的事务检查</small></div><span class="chip tiny">UNAVAILABLE</span></div><div class="kill-row"><div><b>自动模拟交易当前未启用</b><p>本版本不存在正在生效的 Auto Paper 授权，因此没有可停止的自动交易服务。</p></div><button class="btn danger" disabled="" id="killSwitchPreview">一键停止交易 · 未开放</button></div></div>
+</div>
+<aside class="stack"><div class="panel rightcard"><div class="heading">授权生命周期 · 计划</div><div class="auth-stages"><div><span>01</span><b>显式创建授权</b><small>额度、期限、标的及动作范围</small></div><div><span>02</span><b>每单强制校验</b><small>权限、剩余额度、行情、持仓与风险</small></div><div><span>03</span><b>到期自动失效</b><small>授权到期或一键停止即拒绝新执行</small></div><div><span>04</span><b>可审计、可撤销</b><small>每次授权变更与尝试保留事件记录</small></div></div></div><div class="panel rightcard"><div class="heading">Research 与 Auto Paper 的区别</div><p class="muted small">Research 模式负责研究与提出需逐笔人工审批的提案。Auto Paper 未来只在显式授权和强风控条件下允许有限的自动模拟执行。</p><div class="setting-note">两种运行模式都独立于 Demo / Live 数据来源：即便接了真实市场数据，也不会获得真实交易权限。</div><button class="btn" data-page="workspace">返回对话研究 ↗</button></div></aside>
+</div>
+</section><div class="footer">FIN GUARD · STATIC DESIGN PROTOTYPE V0.6 · 所有研究、市场、资产均为合成示例；前端交互不等于真实执行</div></div></main>
+</div>
+<nav class="mobilebar"><button class="active" data-page="workspace"><span>◇</span>对话研究</button><button data-page="library"><span>▤</span>研究档案</button><button data-page="dashboard"><span>▦</span>金融看板</button><button aria-label="授权中心" data-page="authorization"><span>♧</span>授权</button><button data-page="settings"><span>⚙</span>设置</button></nav>
+<div class="drawer-back" id="drawerBack"><section aria-labelledby="drawerTitle" aria-modal="true" class="drawer" role="dialog"><div class="between"><span class="eyebrow" id="drawerKind">EVIDENCE RECORD</span><button aria-label="关闭" class="iconbtn" id="drawerClose">✕</button></div><h2 id="drawerTitle" style="font-size:23px;line-height:1.4">证据详情</h2><p class="muted small" id="drawerIntro"></p><div id="drawerInfo"></div><div class="detail-block"><h4>原始工具回执 / 计算底稿（合成）</h4><pre id="drawerRaw"></pre></div><div class="mini-actions"><button class="btn" id="copyEvidence">复制证据编号</button><button class="btn" id="locateReport">在档案中查看 ↗</button></div></section></div>
+<div class="toast" id="toast"></div>
+<script>
+const $=(s)=>document.querySelector(s);const $$=(s)=>[...document.querySelectorAll(s)];
+const evidence={
+'EVT-021':{type:'公司事件',symbol:'MSFT',source:'fin-guard synthetic event fixture',mode:'demo',as_of:'2026-09-23T20:00:00Z',headline:'[Synthetic] Enterprise cloud spending commentary',summary:'为了测试事件与指标交叉分析而编写的虚构新闻材料。不能作为微软真实公告引用。',event_id:'evt-msft-sim-21',raw:{event_id:'evt-msft-sim-21',symbol:'MSFT',headline:'[Synthetic] Enterprise cloud spending commentary',published_at:'2026-09-23T20:00:00Z',evidence_id:'EVT-021',mode:'demo',source:'synthetic fixture',url:null}},
+'EVT-022':{type:'公司事件',symbol:'AAPL',source:'fin-guard synthetic event fixture',mode:'demo',as_of:'2026-09-22T19:00:00Z',headline:'[Synthetic] Consumer device cycle assessment',summary:'供教学演示的虚构事件；实际需求及公告必须单独验证。',raw:{event_id:'evt-aapl-sim-22',evidence_id:'EVT-022',symbol:'AAPL',url:null,mode:'demo',source:'synthetic fixture'}},
+'QTE-031':{type:'行情快照',symbol:'MSFT',source:'fin-guard synthetic quote T0',mode:'demo',as_of:'SCENARIO_T0 (logical clock)',headline:'MSFT 模拟研究报价',summary:'参考报价仅用于展示，不能反映当前市场价格。',raw:{symbol:'MSFT',price:'420.50',currency:'USD',snapshot_id:'SCENARIO_T0',evidence_id:'QTE-031',source:'synthetic fixture',mode:'demo'}},
+'QTE-032':{type:'行情快照',symbol:'AAPL',source:'fin-guard synthetic quote T0',mode:'demo',as_of:'SCENARIO_T0 (logical clock)',headline:'AAPL 模拟研究报价',summary:'固定合成价格，用于演示数据溯源。',raw:{symbol:'AAPL',price:'238.80',currency:'USD',snapshot_id:'SCENARIO_T0',evidence_id:'QTE-032',source:'synthetic fixture',mode:'demo'}},
+'QTE-033':{type:'行情快照',symbol:'NVDA',source:'fin-guard synthetic quote T0',mode:'demo',as_of:'SCENARIO_T0 (logical clock)',headline:'NVDA 模拟研究报价',summary:'固定合成价格，用于演示数据溯源。',raw:{symbol:'NVDA',price:'132.40',currency:'USD',snapshot_id:'SCENARIO_T0',evidence_id:'QTE-033',source:'synthetic fixture',mode:'demo'}},
+'IND-031':{type:'量化指标',symbol:'MSFT',source:'deterministic python indicator (planned)',mode:'demo',as_of:'SCENARIO_T0',headline:'MSFT · 20 日均线示例',summary:'指标示例：MA20 = 20 个观测收盘价的算术平均。静态原型暂不调用 Python 计算。',raw:{symbol:'MSFT',indicator:'MA20',window:20,formula:'sum(last_20_closes) / 20',value:'406.50',reference_price:'420.50',gap_pct:'+3.44%',price_history_ref:'HIS-031',evidence_id:'IND-031',sample_kind:'SYNTHETIC ILLUSTRATIVE'}},
+'HIS-031':{type:'原始价格序列',symbol:'MSFT',source:'synthetic history fixture',mode:'demo',as_of:'SCENARIO_T0',headline:'MSFT · 20 日演示收盘价',summary:'这些数据为合成样本，仅供展示指标底稿入口。',raw:{symbol:'MSFT',days:20,prices:[400.1,400.8,401.7,402.4,403.2,403.8,404.4,405.0,405.6,406.2,406.8,407.4,408.1,408.6,409.2,409.8,410.5,411.3,412.2,412.9],evidence_id:'HIS-031'}},
+'RSK-031':{type:'风控回执',symbol:'MSFT',source:'risk policy illustration',mode:'demo',as_of:'SCENARIO_T0',headline:'拟买入 2 股 MSFT 的初步风险检查',summary:'模拟说明风控规则。批准后仍必须在后端获取 T1 报价并复核，静态页面无法真正执行该过程。',raw:{proposed_side:'BUY',quantity:2,checks:[{rule:'max_position_weight',limit:'20%',passed:true},{rule:'min_cash_buffer',limit:'10%',passed:true}],post_approval_recheck_required:true,evidence_id:'RSK-031'}},
+'EVT-013':{type:'公司事件',symbol:'NVDA',source:'synthetic fixture',mode:'demo',as_of:'2026-09-19T20:00:00Z',headline:'[Synthetic] Demand outlook uncertainty',summary:'用于风险研究的虚构事件。',raw:{symbol:'NVDA',event_id:'evt-sim-nvda-13',evidence_id:'EVT-013',mode:'demo'}},
+'IND-013':{type:'量化指标',symbol:'NVDA',source:'synthetic indicator fixture',mode:'demo',as_of:'SCENARIO_T0',headline:'NVDA 波动率示例',summary:'演示使用的波动率比较值，并非实时波动率。',raw:{symbol:'NVDA',annualized_volatility:'46.2%',window:20,evidence_id:'IND-013',mode:'demo'}},
+'RSK-012':{type:'风控回执',symbol:'AAPL',source:'risk policy illustration',mode:'demo',as_of:'SCENARIO_T1',headline:'AAPL 价格偏离超过演示阈值',summary:'审批后价格偏离大于 3%，示意系统阻断模拟成交。',raw:{symbol:'AAPL',reference_price:'238.80',execution_price:'249.40',gap_pct:'4.44%',max_gap_pct:'3.00%',allowed:false,error_code:'PRICE_GAP_EXCEEDED',evidence_id:'RSK-012'}}
+};
+const refs=(ids)=>ids.map(id=>`<button class="ref" data-evidence="${id}" title="查看 ${id} 的原始出处">${id} ↗</button>`).join('');
+const S={page:'workspace',run:'pending',doc:'pending',ticker:'MSFT',cash:100000,holdings:{},decision:null,decisions:{},threads:{pending:[],complete:[],blocked:[],running:[]},newTask:false,resolutionText:'',currentEvidence:null};
+const scenarios={
+ pending:{id:'FG-014',title:'美股科技公司对比研究',status:'WAITING_APPROVAL',summary:'MSFT 的研究依据相对完整，但需要人工审批才能提出的模拟买入完成。',description:'资料已收集并生成研究结论。系统暂停在人工审批节点，等待你的明确决定。',report:'事件与量化交叉研究：MSFT / AAPL / NVDA',tag:'等待人工审批',stage:5},
+ running:{id:'FG-015',title:'三家公司事件与价格研究',status:'RUNNING',summary:'市场报价与部分公司事件已获取；历史价格仍在检索中。',description:'三个独立只读工具分支正在执行，完成后才会形成研究判断。',report:'三股对比 · 研究进行中',tag:'研究中',stage:1},
+ complete:{id:'FG-013',title:'NVDA 风险研究',status:'COMPLETED',summary:'波动率较高且存在事件不确定性。演示 Agent 决定暂不提交模拟订单。',description:'研究已完成，结论为 NO_TRADE；成果已进入研究档案。',report:'NVDA 波动风险分析（不交易）',tag:'研究已完成',stage:6},
+ blocked:{id:'FG-012',title:'AAPL 价格偏离复核',status:'COMPLETED',summary:'执行前价格偏差大于 3%，风控阻止了原模拟订单。',description:'风控拒绝的是这一笔订单；研究结果和原始证据仍可访问。',report:'AAPL · 执行前风控复核',tag:'风控阻断',stage:6}
+};
+function money(x){return '$'+Number(x).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function notify(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.classList.remove('show'),2500)}
+function openPage(page){S.pageBeforeLibrary=S.page;S.page=page;$$('.page').forEach(x=>x.classList.toggle('active',x.id===page));$$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));$('#breadcrumb').textContent=({workspace:'对话研究',library:'研究档案',dashboard:'金融看板',settings:'设置 · API'})[page];if(page==='library'){if(S.pageBeforeLibrary==='workspace')S.doc=(S.run==='running'?'pending':S.run);renderLibrary()};if(page==='dashboard')renderDashboard();window.scrollTo({top:0,behavior:'smooth'})}
+function setRun(id){S.run=id;S.decision=S.decisions[id]||null;S.newTask=false;$$('[data-run]').forEach(x=>x.classList.toggle('active',x.dataset.run===id));renderWorkspace();openPage('workspace')}
+function workStage(){
+// 展示的是当前演示 Run 已发生的事件路径；正式版须由后端 AuditEvents 驱动，而不是硬编码固定流程。
+const complete=(names)=>names.map(n=>({name:n,state:'done'}));
+let nodes=[];
+if(S.run==='running')nodes=[{name:'任务',state:'done'},{name:'资料并发',state:'now'},{name:'指标计算',state:'future'},{name:'结论',state:'future'}];
+else if(S.run==='complete')nodes=complete(['任务','资料检索','指标验证','研究判断','NO_TRADE']);
+else if(S.run==='blocked')nodes=complete(['任务','资料检索','指标验证','交易提案','人工审批','执行前复核','风控阻断']);
+else if(S.decision==='approve')nodes=complete(['任务','资料检索','指标验证','研究判断','提案审批','执行前复核','模拟成交']);
+else if(S.decision==='reject')nodes=[...complete(['任务','资料检索','指标验证','研究判断','提案审批','拒绝回执']),{name:'等待新指令',state:'now'}];
+else nodes=[...complete(['任务','资料检索','指标验证','研究判断','初步风控']),{name:'人工审批',state:'now'},{name:'执行前复核',state:'future'}];
+return nodes.map((x,i)=>`<div class="stage ${x.state==='done'?'done':''} ${x.state==='now'?'now':''}"><span class="num">${x.state==='done'?'✓':x.state==='now'?'Ⅱ':i+1}</span>${x.name}</div>${i<nodes.length-1?'<span class="arr">→</span>':''}`).join('');
+}
+function renderWorkflow(){const sc=scenarios[S.run],running=S.run==='running';$('#runIdBadge').textContent='RUN '+sc.id;$('#stageflow').innerHTML=workStage();$('#branchBadge').textContent=running?'2 / 3 已完成':'3 / 3 已完成';$('#branchBadge').className='chip tiny '+(running?'orange':'teal');const tools=[['获取行情','get_quote × 3','call-qt-031','792 ms'],['公司事件','get_company_events × 3','call-evt-021','1,210 ms'],['历史价格','get_price_history × 3','call-his-031','1,480 ms']];$('#branchGrid').innerHTML=tools.map((v,i)=>`<button class="branch ${running&&i===2?'wait':''}" data-tool="${i}"><span class="state">${running&&i===2?'◌':'✓'}</span><b>${v[0]}</b><span>${v[1]}</span><span>${running&&i===2?'进行中':v[3]} · 查看输入输出 ↗</span></button>`).join('');$('#flowAlert').innerHTML=S.run==='pending'&&!S.decision?`<span>Ⅱ　研究已暂停，正在等待你的人工审批</span><button class="btn" id="flowJump">定位审批 ↗</button>`:S.decision==='reject'?`<span>✓　原提案已拒绝，等待新研究指令</span><button class="btn" id="flowJump">继续交流 ↗</button>`:S.decision==='approve'?`<span>✓　已在静态演示中记录模拟批准与成交</span><button class="btn" id="flowJump">查看资产 ↗</button>`:S.run==='running'?`<span>◌　研究工具仍在执行，可展开分支检查耗时</span><button class="btn" id="flowJump">查看分支 ↗</button>`:S.run==='blocked'?`<span>!　PRICE_GAP_EXCEEDED · 订单被风控阻断（非任务中断）</span><button class="btn" id="flowJump">查看原因 ↗</button>`:`<span>✓　研究完成 · NO_TRADE · 未提出模拟订单</span><button class="btn" id="flowJump">查看报告 ↗</button>`;
+}
+function currentStatus(){const sc=scenarios[S.run];if(S.newTask)return ['新研究已记录（静态演示）','该输入仅更新前端示例，不会发起真实模型 API 请求。','ok'];if(S.decision==='reject')return ['原提案已拒绝，可以继续指定下一项研究','拒绝已在前端演示记录中注明；未修改真实账户。','ok'];if(S.decision==='approve')return ['模拟批准已记录（静态演示）','浏览器内展示 Paper Portfolio 变化；真实系统需要后端重新报价与风控。','ok'];return [sc.status==='WAITING_APPROVAL'?'研究暂停 · 等待人工审批':sc.status==='RUNNING'?'并发研究正在进行':sc.tag,sc.description,sc.status==='WAITING_APPROVAL'?'':sc.status==='RUNNING'?'run':sc.tag==='风控阻断'?'no':'ok']}
+function renderFeed(){const sc=scenarios[S.run];const rows=[{icon:'✎',css:'',title:'你的研究任务',meta:'USER · prompt',desc:S.newTask?'请根据上方新输入继续研究（演示，不调用 LLM）':'分析 AAPL、MSFT、NVDA，结合市场事件与量化指标形成研究判断；风险较高就不要交易。'},
+ {icon:'◇',css:'',title:'FinGuard · 研究任务拆解',meta:'AGENT · 选择工具',desc:'并发获取报价、公司事件与历史价格，再使用确定性指标工具形成可验证结论。',ref:['QTE-031']},
+ {icon:'✓',css:'done',title:'三条只读工具分支',meta:'TOOL BATCH · CONCURRENT I/O (DEMO)',desc:S.run==='running'?'报价与事件已返回，历史价格分支仍在等待。点击上面的并发工具节点核对。':'行情、公司事件、历史数据合并回同一研究会话。点击工具分支可查看参数与回执。',ref:['QTE-031','EVT-021','HIS-031']},
+ {icon:'✓',css:'done',title:'指标计算与证据整理',meta:'DETERMINISTIC METRICS · ILLUSTRATIVE',desc:'结合 20 日均线与事件摘要生成初步比较，并保留指标公式与引用底稿。',ref:['IND-031','EVT-021']},
+ {icon:'◇',css:'',title:'研究结论',meta:'RESEARCH REPORT · SYNTHETIC',desc:sc.summary,ref:S.run==='complete'?['EVT-013','IND-013']:S.run==='blocked'?['QTE-032','RSK-012']:['EVT-021','QTE-031','IND-031']}];
+ if(S.run==='pending'&&!S.decision)rows.push({icon:'Ⅱ',css:'wait',title:'等待人工审批',meta:'HUMAN IN THE LOOP · PAUSED',desc:'拟模拟买入 MSFT 2 股。批准或拒绝后，Harness 才能补全该次工具回执。',ref:['RSK-031']});
+ if(S.run==='blocked')rows.push({icon:'!',css:'no',title:'执行被确定性风控阻断',meta:'PRICE_GAP_EXCEEDED',desc:'执行阶段价格偏离超过 3%，拒绝该笔订单。Agent 任务可以正常总结。',ref:['RSK-012']});
+ if(S.run==='complete')rows.push({icon:'✓',css:'done',title:'研究结束 · NO_TRADE',meta:'FINAL · NO ORDER PROPOSAL',desc:'保留研究报告和出处；没有创建模拟订单。'});
+ if(S.decision==='approve')rows.push({icon:'✓',css:'done',title:'用户批准 → 模拟成交（前端演示）',meta:'DEMO · APPROVED',desc:'仅在浏览器演示中修改虚拟资产；后端实际实现必须取 T1 报价并重新验证。',ref:['RSK-031']});
+ if(S.decision==='reject')rows.push({icon:'✕',css:'no',title:'用户拒绝 MSFT 模拟买入',meta:'DEMO · USER_REJECTED',desc:'提案已拒绝，研究资料保留。你可以继续提出自然语言要求。'});
+ for(const t of S.threads[S.run])rows.push({icon:t.kind==='user'?'✎':'◇',css:t.kind==='user'?'':'done',title:t.kind==='user'?'你的补充说明':'FinGuard · 交互说明',meta:t.kind==='user'?'FOLLOW-UP · DEMO':'DEMO RESPONSE',desc:t.text});
+ $('#feed').innerHTML=rows.map(row=>`<div class="event"><div class="dot ${row.css}">${row.icon}</div><div class="bubble"><div><span class="eventtitle">${row.title}</span><span class="eventmeta">${row.meta}</span></div><div class="eventp">${escapeHTML(row.desc)}</div>${row.ref?`<div class="evidences">${refs(row.ref)}</div>`:''}</div></div>`).join('');
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderDecision(){const el=$('#decisionBody');const sc=scenarios[S.run];let tag='HITL';if(S.run==='pending'&&!S.decision){el.innerHTML=`<div class="approval"><span class="chip orange tiny">等待明确授权</span><h3>BUY · MSFT × 2</h3><div class="desc">参考价 $420.50 / 股 · 模拟金额 $841.00<br>理由：事件材料与量化指标初步支持关注，非投资建议。</div><div class="evidences">${refs(['EVT-021','IND-031','RSK-031'])}</div><div class="quietbox warm">审批后仍需重新取价和风控。自然语言提问不会自动批准或拒绝订单。</div><div class="actions"><button class="btn primary" id="approveBtn">批准提案</button><button class="btn danger" id="rejectBtn">拒绝提案</button></div></div><p class="muted xsmall" style="margin:13px 1px 0">想询问原因？直接在最顶部输入框提问，当前审批状态会保留。</p>`;}else if(S.decision==='approve'){tag='演示已批准';el.innerHTML=`<div class="approval"><span class="chip teal tiny">DEMO EXECUTED</span><h3>模拟成交已记录</h3><div class="desc">MSFT × 2 · 演示价 $420.50<br>真实 Harness 的 T1 复核需由后端执行。</div><button class="btn" data-page="dashboard" style="margin-top:11px">查看组合变化 ↗</button></div>`;}else if(S.decision==='reject'){tag='已拒绝';el.innerHTML=`<div class="approval"><span class="chip red tiny">USER_REJECTED</span><h3>没有执行订单</h3><div class="desc">拒绝原提案不影响已经保存的研究资料。你可以从上方输入框继续研究，也可以打开证据查看此前依据。</div><button class="btn" id="continueBtn" style="margin-top:13px">输入下一步要求 ↗</button></div>`;}else if(S.run==='blocked'){tag='规则阻断';el.innerHTML=`<div class="approval"><span class="chip red tiny">PRICE GAP</span><h3>原订单未执行</h3><div class="desc">演示参考价与执行价偏离超过 3%。属于确定性风控阻断，不是模型故障。</div><div class="evidences">${refs(['RSK-012'])}</div></div>`;}else if(S.run==='complete'){tag='无交易';el.innerHTML=`<div class="approval"><span class="chip teal tiny">NO_TRADE</span><h3>研究已完成</h3><div class="desc">结果认为不宜提出订单。相关证据和报告已归档。</div><button class="btn" data-page="library" style="margin-top:12px">打开研究报告 ↗</button></div>`;}else{tag='正在执行';el.innerHTML=`<div class="approval"><span class="chip blue tiny">RUNNING</span><h3>等候研究结果</h3><div class="desc">工具请求执行中。可以查看分支耗时和调用回执；当前并无需要审批的提案。</div></div>`;}$('#decisionTag').textContent=tag;}
+function renderShelf(){const names=[['▤','研究简报','report.md · 结论和证据引用'],['◇','证据档案','evidence.json · 原始工具材料'],['∑','指标底稿','indicators.json · 公式与输入'],['◷','决策与审计','decisions.jsonl · 提案与审批']];$('#shelfPreview').innerHTML=names.map((x,i)=>`<button class="sidefile" data-artifact="${i}"><span class="fileicon">${x[0]}</span><span style="flex:1"><b>${x[1]}</b><small>${x[2]}</small></span><span class="muted">↗</span></button>`).join('');$('#miniEvidence').innerHTML=refs(S.run==='complete'?['EVT-013','IND-013']:S.run==='blocked'?['QTE-032','RSK-012']:['EVT-021','QTE-031','IND-031']);}
+function renderPortfolio(){let pos=S.holdings.MSFT||0;let equity=S.cash+pos*420.5;$('#miniEquity').textContent=money(equity);$('#miniBar').style.width=Math.min(100,100*S.cash/equity)+'%';$('#miniPositions').textContent=`现金 ${money(S.cash)} · MSFT ${pos} 股`;}
+function renderWorkspace(){renderWorkflow();renderFeed();renderDecision();renderShelf();renderPortfolio();const [title,description,kind]=currentStatus();$('#statusTitle').textContent=title;$('#statusDescription').textContent=description;$('#statusIcon').textContent=kind==='no'?'!':kind==='run'?'◌':kind==='ok'?'✓':'Ⅱ';$('#statusIcon').className='statusicon '+kind;}
+function sendPrompt(){const input=$('#promptInput');const txt=input.value.trim();if(!txt){notify('先输入一个研究问题吧');input.focus();return}input.value='';if(S.run==='pending'&&!S.decision){if(/改|不要买|转而|换成|停止|取消|先别|重新/.test(txt)){$('#promptResolutionText').textContent='你说：'+txt;S.resolutionText=txt;$('#promptResolution').classList.add('show');$('#promptResolution').scrollIntoView({behavior:'smooth',block:'center'});return}S.threads[S.run].push({kind:'user',text:txt});S.threads[S.run].push({kind:'assistant',text:'原提案仍在等待审批。此问题属于解释性询问，未批准或拒绝模拟订单。可点击研究证据编号检查依据；静态原型不调用真实模型回答。'});notify('提问已添加，审批保持待定');renderFeed();return}S.threads[S.run].push({kind:'user',text:txt});S.threads[S.run].push({kind:'assistant',text:'已记录新的研究要求。这是独立前端演示，真实 Agent 续聊需要后端 continue_with_instruction 接口支持。'});S.newTask=true;renderWorkspace();notify('已在演示对话中记录新要求')}
+function rejectOrder(){if(S.run!=='pending'||S.decision)return;S.decision='reject';S.decisions[S.run]='reject';renderWorkspace();notify('演示提案已拒绝，资金不变');$('#promptInput').focus()}
+function approveOrder(){if(S.run!=='pending'||S.decision)return;S.decision='approve';S.decisions[S.run]='approve';renderWorkspace();notify('UI 预览批准意向：未提交给后端，也没有模拟成交');}
+function resolveModify(reject){$('#promptResolution').classList.remove('show');if(reject){rejectOrder();S.threads[S.run].push({kind:'user',text:S.resolutionText});S.threads[S.run].push({kind:'assistant',text:'原提案已被明确拒绝，下一步研究要求已记录。真实系统应原子地保存拒绝回执和新增用户消息，避免先恢复后丢失指令。'});}else{S.threads[S.run].push({kind:'user',text:S.resolutionText});S.threads[S.run].push({kind:'assistant',text:'已记录你的研究意向，原订单继续处于待审批状态；是否取消或更改必须明确决定。'});}renderFeed();notify(reject?'已拒绝旧提案并记录下一步':'已保留旧提案');}
+function openEvidence(id){const d=evidence[id];if(!d){notify('此证据在静态演示中不可用，不能虚构来源');return}S.currentEvidence=id;$('#drawerKind').textContent='PROVENANCE · '+d.type.toUpperCase();$('#drawerTitle').textContent=`${id} · ${d.headline}`;$('#drawerIntro').textContent=d.summary;$('#drawerInfo').innerHTML=[['证据编号',id],['股票',d.symbol],['数据模式',d.mode.toUpperCase()+' · 合成数据'],['原始来源',d.source],['观测时间',d.as_of],['外部链接','无（Demo 数据没有真实新闻 URL）']].map(([k,v])=>`<div class="detail-meta"><span>${escapeHTML(k)}</span><b>${escapeHTML(v)}</b></div>`).join('');$('#drawerRaw').textContent=JSON.stringify(d.raw,null,2);$('#drawerBack').classList.add('open');document.body.style.overflow='hidden'}
+function openTool(i){const names=['get_quote','get_company_events','get_price_history'];const ids=['call-qt-031','call-evt-021','call-his-031'];const target=['QTE-031','EVT-021','HIS-031'];const id=target[i];const data=evidence[id];S.currentEvidence=id;$('#drawerKind').textContent='TOOL TRACE · ASYNC BATCH';$('#drawerTitle').textContent=names[i]+' · '+ids[i];$('#drawerIntro').textContent='同一模型轮次中的并发只读工具请求，示例参数和回执如下；此处是预置轨迹，不是测得的网络耗时。';$('#drawerInfo').innerHTML=[['tool_call_id',ids[i]],['tool_name',names[i]],['执行方式','concurrent read-only request'],['样例耗时',['792 ms','1,210 ms','1,480 ms'][i]],['关联证据',id],['数据类型','SYNTHETIC DEMO']].map(([k,v])=>`<div class="detail-meta"><span>${k}</span><b>${v}</b></div>`).join('');$('#drawerRaw').textContent=JSON.stringify({arguments:{symbol:['MSFT','MSFT','MSFT'][i]},tool_call_id:ids[i],tool_response:{ok:true,data:data.raw,error:null}},null,2);$('#drawerBack').classList.add('open');document.body.style.overflow='hidden'}
+function closeDrawer(){$('#drawerBack').classList.remove('open');document.body.style.overflow=''}
+const reportDefinitions={
+ pending:{title:'美国科技股事件与量化研究',summary:'综合模拟事件与趋势，MSFT 为候选关注对象；目前仅有待审批的纸面买入提案。',claims:[['研究资料表明 MSFT 的模拟事件具有进一步关注价值，但不能直接等同于利好信号。',['EVT-021']],['示例价格高于 MA20，因此存在趋势强度线索，需要检查指标计算方法与输入数据。',['QTE-031','IND-031','HIS-031']],['初步模拟仓位检查通过，但批准后仍必须重新取价与复核。',['RSK-031']]],risks:'MSFT 相关事件和价格都是合成样例。事件可能已被市场定价；MA20 不是未来收益预测。缺少真实财务披露与实时市场数据。',decision:'待审批 · BUY MSFT × 2，模拟参考价 $420.50。未批准前不得改动真实或模拟后端账户。',sources:['EVT-021','QTE-031','HIS-031','IND-031','RSK-031']},
+ complete:{title:'NVDA 波动风险研究',summary:'风险因素大于演示数据能支持的机会强度，最终选择 NO_TRADE。',claims:[['模拟事件显示需求预期仍有不确定性，不能从摘要中得出明确买入信号。',['EVT-013']],['示例波动率较高，策略在有限研究证据下不做交易。',['IND-013']]],risks:'缺少真实订单簿和实时新闻。模型应承认不确定性，而不是编造上涨概率。',decision:'COMPLETED · NO_TRADE · 没有生成模拟订单。',sources:['EVT-013','IND-013']},
+ blocked:{title:'AAPL 执行前价格偏离复核',summary:'研究完成，但订单因执行时价格偏离超过 3% 而被阻断。',claims:[['提案价 $238.80 与执行时模拟报价 $249.40 之间出现超限差异。',['QTE-032','RSK-012']],['确定性风控拒绝原订单，审批本身并不覆盖风控。',['RSK-012']]],risks:'此处使用 T0/T1 场景报价；不代表真实行情。订单阻断并不意味着研究任务整体失败。',decision:'BLOCKED · PRICE_GAP_EXCEEDED · 账户未变动。',sources:['QTE-032','RSK-012']}
+};
+function renderLibrary(){const doc=S.doc==='running'?'pending':S.doc;const rep=reportDefinitions[doc]||reportDefinitions.pending;$$('[data-doc]').forEach(x=>x.classList.toggle('active',x.dataset.doc===doc));$('#reportLabel').textContent='RESEARCH REPORT · '+scenarios[doc].id;$('#reportTitle').textContent=rep.title;$('#reportMeta').textContent=scenarios[doc].title+' · SYNTHETIC DEMO · SCENARIO_T0';$('#reportSummary').textContent=rep.summary;$('#reportRisks').textContent=rep.risks;$('#reportDecision').textContent=rep.decision;$('#reportClaims').innerHTML=`<h3>主要研究结论</h3>`+rep.claims.map(([claim,ids],i)=>`<div class="claim"><p><b>${String(i+1).padStart(2,'0')}.</b> ${claim}</p><div class="evidences">${refs(ids)}</div></div>`).join('');$('#artifactList').innerHTML=[['▤','report.md','结论、反面证据与证据引用'],['◇','evidence.json','原始行情、事件与数据源'],['∑','indicators.json','指标计算公式和输入'],['◷','decisions.jsonl','审批、拒绝或风控结果'],['▧','manifest.json','任务 ID、模式与快照版本']].map((x,i)=>`<div class="artifact"><span class="fileicon" style="font-size:14px">${x[0]}</span><span style="flex:1"><b>${x[1]}</b><small>${x[2]}</small></span><button class="link" data-artifact="${i}">查看</button></div>`).join('');$('#sourceList').innerHTML=rep.sources.map(id=>`<button class="source-card" data-evidence="${id}"><b>${id} · ${evidence[id].type}</b><small>${evidence[id].headline}</small><small>${evidence[id].source}</small></button>`).join('');}
+function reportMarkdown(){const doc=S.doc==='running'?'pending':S.doc;const d=reportDefinitions[doc];return `# ${d.title}\n\n> SYNTHETIC DEMO. Not real financial data or investment advice.\n\n## 结论\n${d.summary}\n\n## 可追溯观点\n${d.claims.map(([t,ids])=>`- ${t} [${ids.join(', ')}]`).join('\n')}\n\n## 局限与反面证据\n${d.risks}\n\n## 决策记录\n${d.decision}\n\n## 证据目录\n${d.sources.map(id=>`- ${id}: ${evidence[id].headline}; source=${evidence[id].source}; as_of=${evidence[id].as_of}`).join('\n')}\n`}
+function download(filename,text,type){const b=new Blob([text],{type:type||'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1200);notify('已导出演示文件：'+filename)}
+function renderChart(){const charts={MSFT:{v:[400,402,401,406,404,408,410,408,413,411,415,418,417,420.5],p:'420.50',id:'QTE-031'},AAPL:{v:[229,230,231,228,233,232,231,236,235,237,239,237,238.8],p:'238.80',id:'QTE-032'},NVDA:{v:[127,130,129,133,128,134,132,136,130,135,133,132.4],p:'132.40',id:'QTE-033'}};let o=charts[S.ticker];const w=820,h=220,left=36,right=15,top=16,bottom=29,min=Math.min(...o.v)-5,max=Math.max(...o.v)+5;const pts=o.v.map((y,i)=>[left+i*(w-left-right)/(o.v.length-1),top+(max-y)*(h-top-bottom)/(max-min)]);const p=pts.map((xy,i)=>(i?'L':'M')+xy.map(v=>v.toFixed(1)).join(' ')).join(' '),fill=p+` L${pts.at(-1)[0]} ${h-bottom} L${left} ${h-bottom} Z`;$('#chartLabel').innerHTML=`<span class="heading">${S.ticker} · Synthetic price series</span><button class="link" data-evidence="${o.id}">$${o.p} · 查看来源 ↗</button>`;$('#chart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="${S.ticker} 合成行情趋势示意"><defs><linearGradient id="fgrad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#9cc7f0" stop-opacity=".42"/><stop offset="1" stop-color="#b9dafa" stop-opacity=".01"/></linearGradient></defs>${[0,1,2,3].map(i=>`<line x1="${left}" x2="${w-right}" y1="${top+i*(h-top-bottom)/3}" y2="${top+i*(h-top-bottom)/3}" stroke="#e1ebf5" stroke-dasharray="3 7"/>`).join('')}<path d="${fill}" fill="url(#fgrad)"/><path d="${p}" fill="none" stroke="#6ba5ce" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="6" fill="#fff" stroke="#6ba5ce" stroke-width="3"/>${[0,1,2,3,4].map(i=>`<text x="${left+i*(w-left-right)/4}" y="${h-8}" fill="#9eb0c3" font-size="12">T${i*3+1}</text>`).join('')}</svg>`;$$('[data-ticker]').forEach(b=>b.classList.toggle('active',b.dataset.ticker===S.ticker));}
+function renderDashboard(){const qty=S.holdings.MSFT||0,equity=S.cash+qty*420.5;$('#dashEquity').textContent=money(equity);$('#dashCash').textContent=money(S.cash);$('#dashPositions').textContent=qty?'1':'0';$('#compositionNum').textContent=money(equity);$('#cashPart').style.width=(100*S.cash/equity)+'%';$('#compositionText').textContent=qty?`现金 ${(100*S.cash/equity).toFixed(2)}% · MSFT 2 股 · Demo 价格计值`:'现金 100% · 暂无持仓';$('#stockTable').innerHTML=[['AAPL','$238.80','温和波动','QTE-032'],['MSFT','$420.50','均线之上','QTE-031'],['NVDA','$132.40','高波动示例','QTE-033']].map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td><button class="ref" data-evidence="${x[3]}">${x[3]} ↗</button></td><td><button class="link" data-stock-research="${x[0]}">研究 ↗</button></td></tr>`).join('');$('#ledgerPreview').innerHTML=S.decision==='approve'?`<div class="sources-spot"><b>DEMO EXECUTED · BUY MSFT × 2</b><div class="muted xsmall">仅本地浏览器模拟，无真实后端订单写入</div></div>`:`<div class="sources-spot">当前无模拟成交记录。${S.decision==='reject'?'上次提案已拒绝。':'所有订单均须明确审批。'}</div>`;renderChart();}
+function showArtifact(i){const labels=['研究简报','证据档案','指标底稿','决策记录','档案清单'];const id=S.doc==='running'?'pending':S.doc;const d=reportDefinitions[id];const samples=[{name:'report.md',content:reportMarkdown()},{name:'evidence.json',content:JSON.stringify(d.sources.map(k=>evidence[k].raw),null,2)},{name:'indicators.json',content:JSON.stringify({IND_031:evidence['IND-031'].raw,IND_013:evidence['IND-013'].raw},null,2)},{name:'decisions.jsonl',content:JSON.stringify({run:scenarios[id].id,decision:d.decision,mode:'demo',type:'synthetic example'})},{name:'manifest.json',content:JSON.stringify({run_id:scenarios[id].id,mode:'demo',snapshot:'SCENARIO_T0',synthetic:true,files:['report.md','evidence.json','indicators.json','decisions.jsonl']},null,2)}];const file=samples[i]||samples[0];S.currentEvidence=null;$('#drawerKind').textContent='ARTIFACT · '+labels[i];$('#drawerTitle').textContent=file.name;$('#drawerIntro').textContent='研究成果的推荐归档格式。当前仅从合成数据生成预览和导出，正式落库需后端实现。';$('#drawerInfo').innerHTML=`<div class="detail-meta"><span>RUN ID</span><b>${scenarios[id].id}</b></div><div class="detail-meta"><span>归档模式</span><b>SYNTHETIC DEMO</b></div>`;$('#drawerRaw').textContent=file.content;$('#drawerBack').classList.add('open');document.body.style.overflow='hidden'}
+function showTrace(){S.currentEvidence=null;$('#drawerKind').textContent='AUDIT EVENTS · SYNTHETIC';$('#drawerTitle').textContent='FG-014 · 运行轨迹';$('#drawerIntro').textContent='此为格式示例，不是实时查询的真实记录。正式版本按 get_events(run_id,after_seq) 读取。';$('#drawerInfo').innerHTML=`<div class="detail-meta"><span>事件序号</span><b>同一 Run 内单调递增</b></div><div class="detail-meta"><span>工具映射</span><b>tool_call_id 对应原始回执</b></div>`;$('#drawerRaw').textContent=JSON.stringify([{seq:1,event_type:'RUN_CREATED',run_id:scenarios[S.run].id},{seq:2,event_type:'TOOL_BATCH_STARTED',calls:['get_quote','get_company_events','get_price_history']},{seq:3,event_type:'TOOLS_COMPLETED',overlap:true,note:'simulated example only'},{seq:4,event_type:'PROPOSAL_CREATED',status:'WAITING_APPROVAL'}],null,2);$('#drawerBack').classList.add('open');document.body.style.overflow='hidden'}
+function init(){renderWorkspace();renderLibrary();renderDashboard();$('#sendBtn').onclick=sendPrompt;$('#promptInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();sendPrompt()}});$('#newTaskBtn').onclick=()=>{setRun('pending');$('#promptInput').value='';$('#promptInput').focus();notify('已定位到新任务输入框 · 静态原型')};$('#goPause').onclick=()=>{if(S.run==='pending'&&!S.decision)$('#decisionPanel').scrollIntoView({behavior:'smooth',block:'center'});else $('#workflowPanel').scrollIntoView({behavior:'smooth',block:'start'})};$('#showTrace').onclick=showTrace;$('#rejectAndContinue').onclick=()=>resolveModify(true);$('#keepAndNote').onclick=()=>resolveModify(false);$('#exportMarkdown').onclick=()=>download('FinGuard_'+scenarios[S.doc].id+'_report.md',reportMarkdown(),'text/markdown;charset=utf-8');$('#exportBundle').onclick=()=>{let doc=S.doc==='running'?'pending':S.doc;download('FinGuard_'+scenarios[doc].id+'_research.json',JSON.stringify({run_id:scenarios[doc].id,synthetic_demo:true,report:reportDefinitions[doc],evidence:reportDefinitions[doc].sources.map(x=>({id:x,...evidence[x].raw}))},null,2),'application/json;charset=utf-8')};$('#copyReport').onclick=()=>navigator.clipboard?.writeText(reportMarkdown()).then(()=>notify('已复制报告')).catch(()=>notify('请使用导出功能保存'))||notify('可直接导出 Markdown');$('#backToRun').onclick=()=>setRun(S.doc);$('#dashboardToReport').onclick=()=>{S.doc='pending';openPage('library')};$('#drawerClose').onclick=closeDrawer;$('#drawerBack').addEventListener('click',e=>{if(e.target===$('#drawerBack'))closeDrawer()});$('#copyEvidence').onclick=()=>{if(S.currentEvidence){navigator.clipboard?.writeText(S.currentEvidence);notify('证据编号：'+S.currentEvidence)}else notify('此处展示的是归档文件')};$('#locateReport').onclick=()=>{closeDrawer();openPage('library')};$$('[data-run]').forEach(b=>b.onclick=()=>setRun(b.dataset.run));$$('[data-doc]').forEach(b=>b.onclick=()=>{S.doc=b.dataset.doc;renderLibrary()});$$('[data-quick]').forEach(b=>b.onclick=()=>{$('#promptInput').value=b.dataset.quick;$('#promptInput').focus()});$$('[data-ticker]').forEach(b=>b.onclick=()=>{S.ticker=b.dataset.ticker;renderChart()});document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.page){openPage(b.dataset.page);return}if(b.dataset.evidence){openEvidence(b.dataset.evidence);return}if(b.dataset.tool!==undefined){openTool(Number(b.dataset.tool));return}if(b.dataset.artifact!==undefined){S.doc=S.doc==='running'?'pending':S.doc;showArtifact(Number(b.dataset.artifact));return}if(b.dataset.stockResearch){openPage('workspace');$('#promptInput').value=`请研究 ${b.dataset.stockResearch}，附上每条观点的来源证据。`;$('#promptInput').focus();return}if(b.id==='approveBtn')approveOrder();if(b.id==='rejectBtn')rejectOrder();if(b.id==='continueBtn'){$('#promptInput').focus();window.scrollTo({top:0,behavior:'smooth'})}if(b.id==='flowJump'){if(S.run==='pending'&&!S.decision)$('#decisionPanel').scrollIntoView({behavior:'smooth',block:'center'});else if(S.decision==='reject'){$('#promptInput').focus();window.scrollTo({top:0,behavior:'smooth'})}else if(S.decision==='approve')openPage('dashboard');else if(S.run==='blocked')openEvidence('RSK-012');else if(S.run==='complete')openPage('library');else $('#branchGrid').scrollIntoView({behavior:'smooth'})}});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});}
+init();
+
+// v0.5 local-only mock settings. Never persist a key, never send it to the server.
+function initSettingsPreview(){
+ const pre=$('#fgEnvPreview'), base=$('#fgBaseUrl'), model=$('#fgModel'), key=$('#fgKey'), provider=$('#fgProvider'), feedback=$('#fgValidation');
+ const presets={openai:['https://api.openai.com/v1','gpt-4.1-mini'],deepseek:['https://api.deepseek.com/v1','deepseek-chat'],qwen:['https://dashscope.aliyuncs.com/compatible-mode/v1','qwen-plus'],ollama:['http://127.0.0.1:11434/v1','local-tool-model'],custom:['','']};
+ const clean=v=>String(v??'').replace(/[\r\n]/g,'').trim();
+ function preview(){pre.textContent='LLM_BASE_URL='+clean(base.value||'https://api.example.com/v1')+'\nLLM_MODEL='+clean(model.value||'tool-calling-model-id')+'\n# LLM_API_KEY: 本地安全填写，绝不复制到此文件\nFIN_GUARD_DATA_MODE=demo';}
+ provider.addEventListener('change',()=>{const p=presets[provider.value]||presets.custom;base.value=p[0];model.value=p[1];key.value='';preview();feedback.className='setting-note';feedback.textContent='服务商预设已填写。当前仍是静态预览，未建立真实连接。';});
+ base.addEventListener('input',preview);model.addEventListener('input',preview);
+ $('#fgKeyToggle').addEventListener('click',()=>{const hide=key.type==='text';key.type=hide?'password':'text';$('#fgKeyToggle').textContent=hide?'显示':'隐藏';});
+ $('#fgValidate').addEventListener('click',()=>{
+   const b=clean(base.value),m=clean(model.value),k=key.value;
+   const isHttp=/^https?:\/\/[^\s/]+/i.test(b);
+   const safe=!/[\r\n]/.test(b+m);
+   const demoKey=(k==='demo-key'||k==='')?k:'[已填写，本页面不保存]';
+   if(!isHttp||!m||!safe){feedback.className='setting-note warn';feedback.textContent='请检查 Base URL 是否以 http(s):// 开头，以及 Model ID 是否完整。此处只能做格式校验。';return;}
+   feedback.className='setting-note good';feedback.textContent='字段格式看起来正确。'+(demoKey?'已检测到演示 Key 输入。':'没有填写测试 Key。')+' 注意：尚未调用 API，也未验证模型支持 tool_calls。真实连接检测需等待 Agent A 的后端接口。';
+ });
+ $('#fgCopyEnv').addEventListener('click',async()=>{preview();try{await navigator.clipboard.writeText(pre.textContent);feedback.className='setting-note good';feedback.textContent='已复制无密钥配置模板。API Key 不包含在复制内容中。';}catch(e){feedback.className='setting-note';feedback.textContent='浏览器限制了剪贴板访问，请手动复制右侧配置预览。';}});
+ document.querySelectorAll('input[name="fgDataMode"]').forEach(input=>input.addEventListener('change',()=>{
+  const demo=input.value==='demo';$('#fgModeDemoLabel').classList.toggle('active',demo);$('#fgModeLiveLabel').classList.toggle('active',!demo);
+  $('#fgModeStatus').className='setting-note '+(demo?'good':'warn');
+  $('#fgModeStatus').textContent=demo?'当前预览选择：Demo。无需行情 API；不改变真实运行模式。':'Live 在当前上传版本中尚不可用：默认 DemoMarketDataProvider 会明确返回 LIVE_UNAVAILABLE。这里仅演示未来的设置入口。';
+ }));
+ preview();
+}
+initSettingsPreview();
+
+
+
+
+// ============================================================================
+// v0.6 incremental interaction layer. Static preview only; never talks to APIs.
+// Uses the original v0.5 component renderers wherever behavior is unchanged.
+// ============================================================================
+const v05 = {
+  renderWorkflow,renderFeed,renderDecision,renderLibrary,renderPortfolio,renderDashboard,
+  renderWorkspace,currentStatus,sendPrompt,showTrace,setRun,openPage,renderShelf,reportMarkdown
+};
+const PREVIEW_PRICES = Object.freeze({AAPL:238.80,MSFT:420.50,NVDA:132.40});
+S.cash=97746.80; S.holdings={AAPL:5,NVDA:8}; // synthetic preloaded portfolio: equity $100,000
+S.traceView='progress'; S.startingNew=false; S.runMode='research'; S.heroCollapsed=true;
+S.previewSerial=0; S.previewRunKeys=[]; S.previewApprovalClicks={};
+scenarios.compose={id:'尚未创建',title:'新建研究任务',status:'PREVIEW_ONLY',summary:'请填写研究问题。静态原型不会调用模型。',description:'选择 Research 后输入研究指令，创建本页内的 UI 预览记录。',report:'尚未生成研究报告',tag:'输入任务',stage:0,previewDraft:true};
+S.threads.compose=[];
+const isDraft=()=>Boolean(scenarios[S.run]?.previewDraft);
+const isDocDraft=()=>Boolean(scenarios[S.doc]?.previewDraft);
+const previewEquity=()=>S.cash+Object.entries(S.holdings).reduce((sum,[symbol,qty])=>sum+qty*(PREVIEW_PRICES[symbol]||0),0);
+const shortTitle=t=>t.length>32?t.slice(0,32)+'…':t;
+const originalBaseReportMarkdown=v05.reportMarkdown;
+
+// Natural-language research and safe preview run creation
+function beginNewTask(){
+  S.startingNew=true; S.run='compose';S.decision=null;S.newTask=false;S.runMode='research';
+  $('#promptInput').value='';$('#promptResolution').classList.remove('show');
+  S.heroCollapsed=false; S.traceView='progress'; renderWorkspace();openPage('workspace');
+  $('#promptInput').focus();notify('新任务 · Research 默认可用 · Auto Paper 尚未开放');
+}
+function makePreviewRun(text){
+  const key='preview-'+(++S.previewSerial);
+  const id='FG-PV-'+Date.now().toString(36).toUpperCase()+'-'+String(S.previewSerial).padStart(2,'0');
+  scenarios[key]={id,title:shortTitle(text),status:'PREVIEW_ONLY',summary:'前端已接收研究指令，尚未发起真实 Agent 研究。',description:'UI 预览状态 · 未连接真实后端；无模型、金融工具或审批执行。',report:'研究尚未执行',tag:'等待后端',stage:0,previewDraft:true,prompt:text,runMode:'research'};
+  S.threads[key]=[{kind:'user',text}]; S.previewRunKeys.unshift(key);
+  const holder=$('#recentRunsV06');
+  const row=document.createElement('button');row.className='runitem';row.dataset.run=key;
+  row.innerHTML=`<b>${escapeHTML(shortTitle(text))}</b><span>${escapeHTML(id)} · UI PREVIEW</span>`;
+  holder.prepend(row);row.onclick=()=>setRun(key);
+  S.startingNew=false;S.run=key;S.decision=null;S.newTask=true;S.heroCollapsed=true;
+  renderWorkspace();openPage('workspace');notify('生成独立 UI 预览任务 '+id+' · 未执行模型');
+}
+sendPrompt=function(){
+ const txt=$('#promptInput').value.trim();if(!txt){notify('先写下研究任务或问题');$('#promptInput').focus();return}
+ if(S.startingNew || S.run==='compose'){ $('#promptInput').value='';makePreviewRun(txt);return;}
+ if(isDraft()) {S.threads[S.run].push({kind:'user',text:txt});$('#promptInput').value='';renderFeed();notify('记录在当前 UI 预览任务中 · 尚未送达 Agent');return;}
+ v05.sendPrompt();
+};
+
+function syncHero(){
+ const hero=$('#workspace .hero');hero.classList.toggle('collapsed',Boolean(S.heroCollapsed));
+ $('#heroToggle').textContent=S.heroCollapsed?'展开介绍 ↓':'收起介绍 ↑';
+ $('#heroToggle').setAttribute('aria-expanded',String(!S.heroCollapsed));
+ $('#heroIntro').hidden=Boolean(S.heroCollapsed);
+ $('#heroCompactTitle').hidden=!S.heroCollapsed;
+ $('#activeRunMode').textContent='Research';
+ $('#runModeWrap').classList.toggle('compact-run-mode',Boolean(S.heroCollapsed));
+}
+openPage=function(page){
+ S.pageBeforeLibrary=S.page;S.page=page;
+ $$('.page').forEach(x=>x.classList.toggle('active',x.id===page));
+ $$('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ $('#breadcrumb').textContent=({workspace:'对话研究',library:'研究档案',dashboard:'金融看板',authorization:'授权中心',settings:'设置 · API'})[page]||'对话研究';
+ if(page==='library'){
+   if(S.pageBeforeLibrary==='workspace')S.doc=(S.run==='running'?'pending':S.run);
+   renderLibrary();
+ }
+ if(page==='dashboard')renderDashboard();
+ window.scrollTo({top:0,behavior:'smooth'});
+};
+setRun=function(id){
+ if(!scenarios[id])return;S.startingNew=false;S.run=id;S.decision=S.decisions[id]||null;S.newTask=false;S.heroCollapsed=true;
+ S.traceView='progress';$$('[data-run]').forEach(x=>x.classList.toggle('active',x.dataset.run===id));renderWorkspace();openPage('workspace');
+};
+
+// Preview-specific run events: no fixed FG-014 reuse and no fictitious completed work
+renderWorkflow=function(){
+ if(!isDraft()){v05.renderWorkflow();return}
+ const isCompose=S.run==='compose';
+ $('#runIdBadge').textContent=isCompose?'NEW TASK · 尚未创建':'UI RUN '+scenarios[S.run].id;
+ $('#stageflow').innerHTML=`<div class="stage ${isCompose?'now':'done'}"><span class="num">${isCompose?'1':'✓'}</span>${isCompose?'输入研究指令':'输入已记录'}</div><span class="arr">→</span><div class="stage now"><span class="num">Ⅱ</span>等待真实后端接入</div>`;
+ $('#branchBadge').textContent='尚未执行工具';$('#branchBadge').className='chip tiny orange';
+ $('#branchGrid').innerHTML='<div class="empty-state" style="grid-column:1/-1">未发起金融数据查询；没有并发调用、真实 AuditEvent 或研究结论。正式接入后由 get_events(run_id) 驱动。</div>';
+ $('#flowAlert').innerHTML='<span>ⓘ　这是前端任务预览，不代表 Agent 已运行</span><button class="btn" type="button" data-page="settings">了解模型配置 ↗</button>';
+};
+currentStatus=function(){
+ if(isDraft())return [S.run==='compose'?'创建 Research 研究任务':'研究输入已记录 · 等待后端接入','仅界面预览，没有发起真实 LLM 或工具调用；研究结果不可用。','run'];
+ if(S.decision==='approve')return ['已记录模拟批准点击 · 未发生后端成交','尚未获取 T1 报价、执行风控或写入 SQLite；模拟账户完全不变。',''];
+ return v05.currentStatus();
+};
+function previewTraceEvents(){
+ const run=scenarios[S.run]; const rid=run?.id||'UNKNOWN';
+ if(isDraft())return [{seq:1,run_id:rid,event_type:'UI_PREVIEW_INPUT_ONLY',status:'NOT_EXECUTED',mode:'research',note:'Browser-only prototype, not an actual backend AuditEvent',prompt:run?.prompt||null}];
+ const out=[
+  {seq:1,run_id:rid,event_type:'RUN_CREATED',status:'SYNTHETIC_SAMPLE',data_mode:'demo'},
+  {seq:2,run_id:rid,event_type:'TOOL_BATCH_STARTED',parallel_read_calls:['get_quote','get_company_events','get_price_history'],source:'fixture'}
+ ];
+ if(S.run==='running')out.push({seq:3,run_id:rid,event_type:'TOOL_PARTIAL_RESULT',pending:['get_price_history'],status:'SYNTHETIC_SAMPLE'});
+ else out.push({seq:3,run_id:rid,event_type:'TOOL_BATCH_COMPLETED',status:'SYNTHETIC_SAMPLE'});
+ if(S.run==='pending'){
+  out.push({seq:4,run_id:rid,event_type:'PROPOSAL_CREATED',tool_call_id:'call-proposal-demo',status:'WAITING_APPROVAL'});
+  if(S.decision)out.push({seq:5,run_id:rid,event_type:'UI_PREVIEW_DECISION',decision:S.decision,backend_recorded:false,portfolio_changed:false});
+ } else if(S.run==='complete')out.push({seq:4,run_id:rid,event_type:'TASK_COMPLETED',decision:'NO_TRADE',status:'SYNTHETIC_SAMPLE'});
+ else if(S.run==='blocked')out.push({seq:4,run_id:rid,event_type:'ORDER_BLOCKED',error_code:'PRICE_GAP_EXCEEDED',status:'SYNTHETIC_SAMPLE'});
+ return out;
+}
+function renderTraceInFeed(){
+ const events=previewTraceEvents();
+ $('#feed').innerHTML='<div class="preview-note">技术 Trace 是按当前所选任务展示的格式化示例。不是从 Python Harness 读取的真实日志。</div><div class="trace-list">'+events.map(e=>`<details class="trace-entry"><summary>${escapeHTML(String(e.seq).padStart(2,'0'))} · ${escapeHTML(e.event_type)} <span class="trace-meta">${escapeHTML(e.run_id)}</span></summary><pre>${escapeHTML(JSON.stringify(e,null,2))}</pre></details>`).join('')+'</div>';
+}
+renderFeed=function(){
+ $('#progressViewBtn').classList.toggle('active',S.traceView==='progress');
+ $('#technicalViewBtn').classList.toggle('active',S.traceView==='trace');
+ $('#progressViewBtn').setAttribute('aria-pressed',String(S.traceView==='progress'));
+ $('#technicalViewBtn').setAttribute('aria-pressed',String(S.traceView==='trace'));
+ if(S.traceView==='trace'){renderTraceInFeed();return}
+ if(!isDraft()){v05.renderFeed();return}
+ const t=scenarios[S.run],isCompose=S.run==='compose';
+ $('#feed').innerHTML=`<div class="empty-state"><b>${isCompose?'准备新研究':'研究任务已在前端记录'}</b><br>${isCompose?'输入研究问题后创建独立预览任务，不会调用 LLM。':'你可以继续补充研究要求，但这仍是浏览器本地预览，尚无实际 Agent 回复。'}</div>`+S.threads[S.run].map(entry=>`<div class="event"><div class="dot">✎</div><div class="bubble"><div><span class="eventtitle">你的研究指令</span><span class="eventmeta">UI ONLY</span></div><div class="eventp">${escapeHTML(entry.text)}</div></div></div>`).join('');
+};
+renderDecision=function(){
+ if(isDraft()){
+  $('#decisionTag').textContent='未执行';
+  $('#decisionBody').innerHTML='<div class="approval"><span class="chip blue tiny">RESEARCH · PREVIEW ONLY</span><h3>暂无待审批事项</h3><div class="desc">新的研究输入尚未发送给实际 Agent。只有真实 Harness 生成提案后，才能显示可执行的 HITL 审批。</div></div>';
+  return;
+ }
+ if(S.decision==='approve'){
+  $('#decisionTag').textContent='预览点击';
+  $('#decisionBody').innerHTML='<div class="approval"><span class="chip orange tiny">UI CLICK · NOT EXECUTED</span><h3>批准意向已在页面预览</h3><div class="desc">没有向 Python 后端提交批准，也没有执行 T1 报价、风险复核或 SQLite 交易。该状态不代表成交。</div><div class="setting-note warn">资产与持仓不变。正式接入必须调用 decide_proposal，并展示其返回的真实 order_status。</div></div>';
+  return;
+ }
+ v05.renderDecision();
+};
+function decisionAnalysisFor(key){
+ if(scenarios[key]?.previewDraft)return [
+  {k:'Signal',text:'尚未获取市场数据或计算信号。',ids:[]},
+  {k:'Thesis',text:'尚未形成可验证研究假设。',ids:[]},
+  {k:'Risk',text:'尚未执行风险计算。',ids:[]},
+  {k:'Decision',text:'仅记录用户问题 · 不执行 / 不推荐任何交易。',ids:[]}
+ ];
+ if(key==='complete')return [
+  {k:'Signal',text:'演示波动率提示 NVDA 不确定性较高。',ids:['IND-013']},
+  {k:'Thesis',text:'事件预期尚不清晰，缺乏充分的积极证据。',ids:['EVT-013']},
+  {k:'Risk',text:'波动指标无法推断未来回撤，数据为合成样例。',ids:['IND-013']},
+  {k:'Decision',text:'NO_TRADE · 研究完成，不提出 Paper 订单。',ids:[]}
+ ];
+ if(key==='blocked')return [
+  {k:'Signal',text:'原研究产生关注信号，但不是成交保证。',ids:['QTE-032']},
+  {k:'Thesis',text:'原计划提交 AAPL Paper 提案。',ids:['QTE-032']},
+  {k:'Risk',text:'模拟 T1 报价偏离 T0 超过 3%，触发确定性风控。',ids:['RSK-012']},
+  {k:'Decision',text:'BLOCKED · 拒绝执行这笔订单，保留研究。',ids:['RSK-012']}
+ ];
+ return [
+  {k:'Signal',text:'MSFT 模拟报价位于 MA20 之上，属于观察信号。',ids:['QTE-031','IND-031']},
+  {k:'Thesis',text:'合成事件与趋势一致，值得追加验证；不构成收益预测。',ids:['EVT-021']},
+  {k:'Risk',text:'当前只有合成证据；真实下单前仍须审批、重报价与风控。',ids:['RSK-031']},
+  {k:'Decision',text:S.decision==='reject'?'用户拒绝提案 · 后端未执行。':S.decision==='approve'?'UI 批准意向 · 未向后端提交、未成交。':'WAITING_APPROVAL · 等待用户选择。',ids:[]}
+ ];
+}
+function decisionCards(key){return decisionAnalysisFor(key).map(item=>`<div class="decision-quad"><div class="decision-label">${escapeHTML(item.k.toUpperCase())}</div><p>${escapeHTML(item.text)}</p>${item.ids.length?`<div class="evidences">${refs(item.ids)}</div>`:''}</div>`).join('')}
+function renderInlineDecision(){ $('#workspaceDecisionMatrix').innerHTML=decisionCards(S.run); }
+renderWorkspace=function(){v05.renderWorkspace();renderInlineDecision();syncHero();}
+
+renderLibrary=function(){
+ if(!isDocDraft()){
+  v05.renderLibrary();$('#reportDecisionMatrix').innerHTML=decisionCards(S.doc==='running'?'pending':S.doc);
+  $('#exportMarkdown').disabled=false;$('#exportBundle').disabled=false;$('#copyReport').disabled=false;return;
+ }
+ const sc=scenarios[S.doc];$$('[data-doc]').forEach(x=>x.classList.toggle('active',x.dataset.doc===S.doc));
+ $('#reportLabel').textContent='DRAFT / UI PREVIEW · '+sc.id;
+ $('#reportTitle').textContent='研究任务已记录 · 尚无研究成果';
+ $('#reportMeta').textContent='Research · Demo 数据来源 · 无实际模型调用';
+ $('#reportSummary').textContent='这是一条独立的新任务预览，尚未生成 Signal、Thesis 或真实结论。';
+ $('#reportClaims').innerHTML='<div class="empty-state">没有可展示的研究判断、证据编号或工具调用。请在正式版接入 Harness 后开始研究。</div>';
+ $('#reportRisks').textContent='没有足够证据进行金融风险评估。';
+ $('#reportDecision').textContent='NOT EXECUTED · 没有自动交易，没有订单，也没有模拟资金变化。';
+ $('#reportDecisionMatrix').innerHTML=decisionCards(S.doc);
+ $('#artifactList').innerHTML='<div class="empty-state">未生成 report.md、指标底稿或审计归档。</div>';
+ $('#sourceList').innerHTML='<div class="empty-state">没有原始证据可供核验。</div>';
+ $('#exportMarkdown').disabled=true;$('#exportBundle').disabled=true;$('#copyReport').disabled=true;
+};
+renderPortfolio=function(){
+ const equity=previewEquity();$('#miniEquity').textContent=money(equity);
+ $('#miniBar').style.width=Math.max(0,Math.min(100,100*S.cash/equity))+'%';
+ $('#miniPositions').textContent=`合成初始账户 · 现金 ${money(S.cash)} · ${Object.entries(S.holdings).map(([s,q])=>s+' '+q+' 股').join(' · ')}`;
+};
+renderDashboard=function(){
+ const equity=previewEquity(),positions=Object.entries(S.holdings).filter(([s,q])=>q>0);
+ $('#dashEquity').textContent=money(equity);$('#dashCash').textContent=money(S.cash);$('#dashPositions').textContent=String(positions.length);
+ $('#compositionNum').textContent=money(equity);$('#cashPart').style.width=(100*S.cash/equity).toFixed(2)+'%';
+ $('#compositionText').textContent=`合成初始组合 · 现金 ${(100*S.cash/equity).toFixed(2)}% · ${positions.length} 只持仓（所有前端审批操作均不改变余额）`;
+ $('#holdingsTable').innerHTML=positions.map(([sym,qty])=>`<div class="holding-line"><strong>${escapeHTML(sym)}</strong><span>${qty} 股</span><b>${money(qty*PREVIEW_PRICES[sym])}</b></div>`).join('');
+ $('#stockTable').innerHTML=[['AAPL','$238.80','温和波动','QTE-032'],['MSFT','$420.50','均线之上','QTE-031'],['NVDA','$132.40','高波动示例','QTE-033']].map(x=>`<tr><td><b>${x[0]}</b></td><td>${x[1]}</td><td>${x[2]}</td><td><button class="ref" data-evidence="${x[3]}">${x[3]} ↗</button></td><td><button class="link" data-stock-research="${x[0]}">研究 ↗</button></td></tr>`).join('');
+ $('#ledgerPreview').innerHTML=`<div class="sources-spot"><b>无实际模拟成交记录</b><div class="muted small">已展示的是独立预置合成账户。${S.decision==='approve'?'批准按钮只更新 UI 意向，不会扣减余额、增加持仓或创建订单。':'正式后端成交记录需要从 SQLite 查询。'}</div></div>`;
+ renderChart();
+};
+approveOrder=function(){
+ if(S.run!=='pending'||S.decision)return;
+ S.decision='approve';S.decisions.pending='approve';S.previewApprovalClicks.pending='approve';
+ // deliberately NO cash, position, order or ledger changes in the browser
+ renderWorkspace();renderDashboard();notify('仅界面演示批准意向 · 没有执行订单或更改账户');
+};
+showTrace=function(){
+ S.currentEvidence=null;
+ $('#drawerKind').textContent='AUDIT TRACE · STATIC PREVIEW';
+ $('#drawerTitle').textContent=scenarios[S.run].id+' · 任务执行事件';
+ $('#drawerIntro').textContent='当前任务独立显示自己的合成演示事件；真实版必须由后端 get_events(run_id, after_seq) 返回。';
+ $('#drawerInfo').innerHTML=`<div class="detail-meta"><span>任务 ID</span><b>${escapeHTML(scenarios[S.run].id)}</b></div><div class="detail-meta"><span>真实 API</span><b>未连接 · STATIC UI ONLY</b></div>`;
+ $('#drawerRaw').textContent=JSON.stringify(previewTraceEvents(),null,2);
+ $('#drawerBack').classList.add('open');document.body.style.overflow='hidden';
+};
+// Ensure no stale FG-014 or forged report export is served for new draft IDs
+const v05ReportMarkdown=v05.reportMarkdown;
+reportMarkdown=function(){if(isDocDraft())return '# '+scenarios[S.doc].id+'\n\n尚未运行真实 Agent，无法导出研究报告。';return v05ReportMarkdown()};
+
+// Hook the existing listeners without replacing baseline layout logic
+$('#newTaskBtn').onclick=beginNewTask;
+$('#sendBtn').onclick=sendPrompt;
+$$('[data-run]').forEach(b=>b.onclick=()=>setRun(b.dataset.run));
+$('#progressViewBtn').onclick=()=>{S.traceView='progress';renderFeed()};
+$('#technicalViewBtn').onclick=()=>{S.traceView='trace';renderFeed()};
+$('#heroToggle').onclick=()=>{S.heroCollapsed=!S.heroCollapsed;syncHero()};
+$('#exportMarkdown').onclick=()=>{if(isDocDraft())return;download('FinGuard_'+scenarios[S.doc==='running'?'pending':S.doc].id+'_report.md',reportMarkdown(),'text/markdown;charset=utf-8')};
+$('#exportBundle').onclick=()=>{if(isDocDraft())return;let doc=S.doc==='running'?'pending':S.doc;download('FinGuard_'+scenarios[doc].id+'_research.json',JSON.stringify({run_id:scenarios[doc].id,synthetic_demo:true,report:reportDefinitions[doc],decision_analysis:decisionAnalysisFor(doc),evidence:reportDefinitions[doc].sources.map(x=>({id:x,...evidence[x].raw}))},null,2),'application/json;charset=utf-8')};
+$('#backToRun').onclick=()=>setRun(S.doc);
+$('#showTrace').onclick=showTrace;
+$('#goPause').onclick=()=>{if(S.run==='pending'&&!S.decision)$('#decisionPanel').scrollIntoView({behavior:'smooth',block:'start'});else $('#workflowPanel').scrollIntoView({behavior:'smooth',block:'start'})};
+$('#researchModeLabel').onclick=()=>notify('Research 模式可用；Auto Paper 尚未开放');
+$('#autoPaperModeLabel').onclick=()=>notify('Auto Paper 仅为未来设计 · 不可选择或执行');
+$('#fgKeyToggle').disabled=true;$('#fgKey').disabled=true;
+$('#fgValidate').addEventListener('click',()=>{
+ let ok=/^https?:\/\/[^\s/]+/i.test($('#fgBaseUrl').value.trim()) && Boolean($('#fgModel').value.trim());
+ $('#fieldCheckStatus').textContent=ok?'格式符合要求（未联网）':'格式未通过';
+ $('#fieldCheckStatus').style.color=ok?'#47876e':'#b27868';
+});
+$('#fgModeLiveLabel').onclick=e=>{e.preventDefault();notify('Live Provider 尚未实现 · 不能启用')};
+const liveRadio=$('#fgModeLiveLabel input');liveRadio.disabled=true;
+const liveMsg=$('#fgModeStatus');liveMsg.textContent='Demo 数据源是当前唯一可选项；Live Provider 尚未实现，因此正式启用入口已禁用。';
+// New preview task entries show up in research session list, but are not fabricated report records
+const docRows=$('#dynamicDocRows');
+const originalMakePreviewRun=makePreviewRun;
+makePreviewRun=function(text){
+ originalMakePreviewRun(text);
+ const key=S.run,sc=scenarios[key];
+ const row=document.createElement('button');row.className='docrow';row.dataset.doc=key;
+ row.innerHTML=`<b>${escapeHTML(sc.title)}</b><small>${escapeHTML(sc.id)} · 无研究成果</small>`;
+ docRows.prepend(row);row.onclick=()=>{S.doc=key;renderLibrary()};
+};
+// original data-doc buttons remain wired; dynamic doc rows are wired when inserted
+renderWorkspace();renderLibrary();renderDashboard();syncHero();
+
+
+// v0.6 truthful status polish: presentation never claims a synthetic click filled an order
+const v06PriorWorkflow=renderWorkflow;
+renderWorkflow=function(){
+ v06PriorWorkflow();
+ if(S.run==='pending'&&S.decision==='approve'){
+   $$('#stageflow .stage').forEach(x=>{if(x.textContent.includes('模拟成交'))x.lastChild.textContent='尚未执行';});
+   $('#flowAlert').innerHTML='<span>ⓘ　批准意向仅在 UI 中记录；没有后端订单，也没有修改账户</span><button class="btn" id="flowJump">查看状态 ↗</button>';
+ }
+};
+const v06PriorFeed=renderFeed;
+renderFeed=function(){
+ v06PriorFeed();
+ if(S.run==='pending'&&S.decision==='approve'&&S.traceView==='progress'){
+   $$('#feed .event').forEach(el=>{
+    const title=el.querySelector('.eventtitle');
+    if(title&&title.textContent.includes('模拟成交')){
+      title.textContent='已预览人工批准意向（未提交 / 未成交）';
+      const meta=el.querySelector('.eventmeta');if(meta)meta.textContent='UI PREVIEW · NOT EXECUTED';
+      const summary=el.querySelector('.eventp');if(summary)summary.textContent='未提交真实审批、未取 T1 报价或写入账本。模拟账户保持原样。';
+    }
+   });
+ }
+};
+renderShelf=function(){
+ if(!isDraft()){v05.renderShelf();return}
+ $('#shelfPreview').innerHTML='<div class="empty-state">本任务只有用户输入，暂无报告、计算底稿和后端决策记录。</div>';
+ $('#miniEvidence').innerHTML='';
+};
+renderWorkspace();
+
+// Ensure exported research Markdown contains the same Signal / Thesis / Risk / Decision
+// categories visible in the dossier. Provenance IDs remain fixture references.
+const v06MarkdownWithoutDecisionCards=reportMarkdown;
+reportMarkdown=function(){
+ const base=v06MarkdownWithoutDecisionCards();
+ if(isDocDraft())return base;
+ const k=S.doc==='running'?'pending':S.doc;
+ return base+'\n## Signal / Thesis / Risk / Decision\n'+decisionAnalysisFor(k).map(item=>
+  '### '+item.k+'\n'+item.text+(item.ids.length?' ['+item.ids.join(', ')+']':'')
+ ).join('\n\n')+'\n';
+};
+</script>
+
+
+</body></html>
