@@ -1,0 +1,23 @@
+/* FinGuard HR walkthrough: overlays existing Research Studio without changing its layout. */
+.fg-tour-panel{position:fixed;z-index:170;bottom:19px;left:50%;transform:translateX(-50%);width:min(510px,calc(100vw - 26px));padding:16px 19px 14px;background:rgba(249,252,255,.96);border:1px solid rgba(157,190,223,.72);border-radius:19px;box-shadow:0 14px 48px rgba(38,77,116,.24),0 2px 11px rgba(51,96,139,.13);backdrop-filter:blur(22px);color:#274b72;font-family:'DM Sans','Noto Sans SC',sans-serif;transition:opacity .22s ease}
+.fg-tour-panel[hidden]{display:none!important}
+.fg-tour-panel .fg-tour-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.fg-tour-panel .fg-tour-kicker{font-size:10px;font-weight:800;letter-spacing:.9px;color:#5f89ab}
+.fg-tour-panel .fg-tour-counter{font-size:10px;color:#8ba0b7;font-weight:700;white-space:nowrap}
+.fg-tour-panel h2{margin:6px 0 4px;line-height:1.3;font-weight:800;font-size:17px}
+.fg-tour-panel p{margin:0;color:#667f9d;line-height:1.6;font-size:12px;min-height:39px}
+.fg-tour-track{height:4px;border-radius:99px;background:#deebf5;margin-top:13px;overflow:hidden}
+.fg-tour-fill{height:100%;width:0;background:linear-gradient(90deg,#6fb5df,#3075af);border-radius:99px;transition:width .16s linear}
+.fg-tour-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.fg-tour-disclaimer{font-size:9px;color:#94a9bc;line-height:1.3}
+.fg-tour-actions{display:flex;align-items:center;gap:7px}
+.fg-tour-actions button,.fg-tour-reopen{border:1px solid #d6e4f3;border-radius:9px;background:#fff;color:#457197;font-weight:750;font-size:11px;padding:7px 10px;cursor:pointer;white-space:nowrap;transition:background .18s}
+.fg-tour-actions button:hover,.fg-tour-reopen:hover{background:#eaf5fe}
+.fg-tour-actions .fg-tour-primary{background:#376f9b;color:#fff;border-color:#376f9b}
+.fg-tour-actions .fg-tour-primary:hover{background:#285c85}
+.fg-tour-reopen{position:fixed;z-index:155;bottom:20px;right:20px;box-shadow:0 6px 22px #2a588d22;display:none;padding:10px 14px}
+.fg-tour-reopen.fg-visible{display:block}
+.fg-tour-spotlight{position:relative!important;outline:3px solid rgba(67,140,199,.88)!important;outline-offset:7px!important;box-shadow:0 0 0 12px rgba(66,144,207,.10),0 10px 35px rgba(64,122,183,.12)!important;transition:outline .25s ease,box-shadow .25s ease;scroll-margin-top:42px;scroll-margin-bottom:185px}
+.fg-tour-panel button:focus-visible,.fg-tour-reopen:focus-visible{outline:3px solid #88bbe8;outline-offset:2px}
+@media(max-width:650px){.fg-tour-panel{bottom:74px;padding:13px 15px 12px;border-radius:16px}.fg-tour-panel h2{font-size:15px}.fg-tour-panel p{font-size:11px;min-height:50px}.fg-tour-disclaimer{display:none}.fg-tour-reopen{bottom:76px;right:12px}}
+@media(prefers-reduced-motion:reduce){.fg-tour-panel,.fg-tour-fill,.fg-tour-spotlight{transition:none!important}}

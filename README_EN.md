@@ -2,6 +2,8 @@
 
 [简体中文](README.md) · [English](README_EN.md) · [Live interactive UI preview](https://lifee3421.github.io/FinGuard/)
 
+**For recruiters:** the static preview opens with an approximately 47-second guided tour of the existing Research Studio interface. You can pause, skip, advance chapters, replay, or freely explore. It uses synthetic scenarios only; no live LLM or order execution.
+
 **A traceable, human-in-the-loop financial research Agent with a local paper-trading sandbox.**
 
 FinGuard is a Python prototype exploring how AI can carry out a multi-step investment research workflow **without surrendering risk controls or execution authority to the model**. A user can ask a research question, inspect the Agent's tool calls and evidence, and explicitly approve or reject any *simulated* order proposal.

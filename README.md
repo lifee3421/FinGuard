@@ -12,7 +12,9 @@ FinGuard 是一个独立设计与开发的金融研究 Agent 原型。用户提�
 
 [![FinGuard 研究工作台](docs/media/workspace.png)](https://lifee3421.github.io/FinGuard/)
 
-[▶ 打开在线 Demo](https://lifee3421.github.io/FinGuard/) · [▶ 查看约 16 秒的操作演示 GIF](docs/media/ui-walkthrough.gif)
+[▶ 打开在线 Demo（自动播放约 47 秒产品导览）](https://lifee3421.github.io/FinGuard/) · [▶ 查看约 16 秒的操作演示 GIF](docs/media/ui-walkthrough.gif)
+
+在线 Demo 首次进入会自动依次展示研究问题、并发工具、技术 Trace、证据档案、人工审批与风控案例；支持**暂停、跳过、下一幕与重播**。自动演示仅切换合成场景，不调用 LLM，也不会生成模拟订单。
 
 <details>
 <summary>展开查看动态演示与其他页面</summary>
