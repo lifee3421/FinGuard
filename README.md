@@ -17,7 +17,7 @@ FinGuard is a Python prototype exploring how AI can carry out a multi-step inves
 
 ![FinGuard static UI walkthrough — workspace, trace, dossier, market dashboard and authorization preview](docs/media/ui-walkthrough.gif)
 
-The GIF records actual navigation through the static interface, **not a recording of a real backend/LLM run**. The Authorization Center / Auto Paper screens are future-design previews, disabled in the current prototype.
+This 16-second walkthrough combines **static-interactive UI screenshots and focused crops** to show the complete execution route, human-approval panel and technical Trace in separate, readable frames. It is **not a recording of a real backend/LLM run**. The Authorization Center / Auto Paper screens are future-design previews, disabled in the current prototype.
 
 </details>
 
